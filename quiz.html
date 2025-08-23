@@ -1,0 +1,556 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Quiz de Profissões - UniPonte</title>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+    <style>
+        :root {
+            --primary: #4A6BDF;
+            --secondary: #FF6B6B;
+            --accent: #4ECDC4;
+            --light: #F7F9FC;
+            --dark: #333333;
+            --success: #28a745;
+            --warning: #ffc107;
+            --danger: #dc3545;
+        }
+        
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+        }
+        
+        body {
+            background: linear-gradient(135deg, #f5f7fa 0%, #c3cfe2 100%);
+            color: var(--dark);
+            line-height: 1.6;
+            min-height: 100vh;
+            padding: 20px;
+        }
+        
+        .container {
+            max-width: 800px;
+            margin: 0 auto;
+            background: white;
+            border-radius: 20px;
+            box-shadow: 0 10px 30px rgba(0, 0, 0, 0.1);
+            overflow: hidden;
+        }
+        
+        .quiz-header {
+            background: linear-gradient(135deg, var(--primary), #304fca);
+            color: white;
+            padding: 30px;
+            text-align: center;
+        }
+        
+        .quiz-header h1 {
+            font-size: 2.2rem;
+            margin-bottom: 10px;
+        }
+        
+        .quiz-header p {
+            font-size: 1.1rem;
+            opacity: 0.9;
+        }
+        
+        .quiz-progress {
+            height: 10px;
+            background: rgba(255, 255, 255, 0.3);
+            margin-top: 20px;
+            border-radius: 5px;
+            overflow: hidden;
+        }
+        
+        .progress-bar {
+            height: 100%;
+            background: var(--accent);
+            width: 0%;
+            transition: width 0.5s ease;
+            border-radius: 5px;
+        }
+        
+        .quiz-body {
+            padding: 30px;
+        }
+        
+        .question-container {
+            margin-bottom: 30px;
+        }
+        
+        .question-number {
+            font-size: 0.9rem;
+            color: #777;
+            margin-bottom: 5px;
+        }
+        
+        .question-text {
+            font-size: 1.4rem;
+            font-weight: 600;
+            margin-bottom: 20px;
+        }
+        
+        .options-container {
+            display: grid;
+            gap: 15px;
+        }
+        
+        .option {
+            padding: 15px 20px;
+            background: var(--light);
+            border-radius: 12px;
+            cursor: pointer;
+            transition: all 0.3s;
+            border: 2px solid transparent;
+        }
+        
+        .option:hover {
+            transform: translateY(-3px);
+            box-shadow: 0 5px 15px rgba(0, 0, 0, 0.1);
+            border-color: var(--primary);
+        }
+        
+        .option.selected {
+            background: var(--primary);
+            color: white;
+            border-color: var(--primary);
+        }
+        
+        .nav-buttons {
+            display: flex;
+            justify-content: space-between;
+            margin-top: 30px;
+        }
+        
+        .quiz-btn {
+            padding: 12px 25px;
+            border-radius: 50px;
+            border: none;
+            font-weight: 600;
+            cursor: pointer;
+            transition: all 0.3s;
+            display: flex;
+            align-items: center;
+            gap: 8px;
+        }
+        
+        .btn-prev {
+            background: var(--light);
+            color: var(--dark);
+        }
+        
+        .btn-next {
+            background: var(--primary);
+            color: white;
+        }
+        
+        .btn-restart {
+            background: var(--accent);
+            color: white;
+        }
+        
+        .quiz-btn:hover {
+            transform: translateY(-2px);
+            box-shadow: 0 5px 15px rgba(0, 0, 0, 0.1);
+        }
+        
+        .quiz-btn:disabled {
+            opacity: 0.5;
+            cursor: not-allowed;
+            transform: none;
+            box-shadow: none;
+        }
+        
+        .result-container {
+            text-align: center;
+            padding: 30px;
+            display: none;
+        }
+        
+        .result-title {
+            font-size: 2rem;
+            color: var(--primary);
+            margin-bottom: 20px;
+        }
+        
+        .result-profession {
+            font-size: 1.8rem;
+            color: var(--secondary);
+            margin-bottom: 30px;
+            font-weight: 700;
+        }
+        
+        .result-description {
+            background: var(--light);
+            padding: 20px;
+            border-radius: 12px;
+            margin-bottom: 30px;
+            text-align: left;
+        }
+        
+        .result-actions {
+            display: flex;
+            justify-content: center;
+            gap: 15px;
+            flex-wrap: wrap;
+        }
+        
+        .career-image {
+            width: 150px;
+            height: 150px;
+            margin: 0 auto 20px;
+            background: var(--light);
+            border-radius: 50%;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-size: 3.5rem;
+            color: var(--primary);
+        }
+        
+        @media (max-width: 768px) {
+            .quiz-header h1 {
+                font-size: 1.8rem;
+            }
+            
+            .question-text {
+                font-size: 1.2rem;
+            }
+            
+            .nav-buttons {
+                flex-direction: column;
+                gap: 15px;
+            }
+            
+            .quiz-btn {
+                width: 100%;
+                justify-content: center;
+            }
+        }
+    </style>
+</head>
+<body>
+    <div class="container">
+        <div class="quiz-header">
+            <h1><i class="fas fa-graduation-cap"></i> Quiz de Profissões</h1>
+            <p>Descubra qual carreira combina mais com você!</p>
+            <div class="quiz-progress">
+                <div class="progress-bar" id="progress-bar"></div>
+            </div>
+        </div>
+        
+        <div class="quiz-body">
+            <div id="question-container">
+                <!-- Questions will be inserted here by JavaScript -->
+            </div>
+            
+            <div class="nav-buttons">
+                <button class="quiz-btn btn-prev" id="prev-btn" disabled>
+                    <i class="fas fa-arrow-left"></i> Anterior
+                </button>
+                <button class="quiz-btn btn-next" id="next-btn">
+                    Próxima <i class="fas fa-arrow-right"></i>
+                </button>
+            </div>
+        </div>
+        
+        <div class="result-container" id="result-container">
+            <div class="career-image">
+                <i class="fas fa-laptop-code" id="career-icon"></i>
+            </div>
+            <h2 class="result-title">Parabéns! Seu resultado:</h2>
+            <h3 class="result-profession" id="result-profession">Desenvolvedor de Software</h3>
+            
+            <div class="result-description">
+                <p id="result-description">Com base nas suas respostas, você demonstrou grande aptidão para trabalhar com tecnologia e solução de problemas. Sua carreira ideal está na área de desenvolvimento de software, onde poderá criar aplicativos, sistemas e soluções inovadoras.</p>
+                <p class="mt-3">Que tal explorar projetos práticos na área de Tecnologia no UniPonte?</p>
+            </div>
+            
+            <div class="result-actions">
+                <button class="quiz-btn btn-restart" id="restart-btn">
+                    <i class="fas fa-redo"></i> Fazer Novamente
+                </button>
+                <button class="quiz-btn btn-primary" id="explore-btn">
+                    <i class="fas fa-search"></i> Explorar Projetos
+                </button>
+            </div>
+        </div>
+    </div>
+
+    <script>
+        document.addEventListener('DOMContentLoaded', function() {
+            // Quiz questions and options
+            const questions = [
+                {
+                    question: "O que você mais gosta de fazer no seu tempo livre?",
+                    options: [
+                        "Ler, escrever ou debater ideias",
+                        "Consertar ou montar coisas",
+                        "Desenhar, criar ou tocar instrumentos",
+                        "Ajudar ou cuidar de outras pessoas",
+                        "Resolver problemas ou quebra-cabeças",
+                        "Organizar eventos ou atividades"
+                    ]
+                },
+                {
+                    question: "Qual matéria você mais gosta na escola?",
+                    options: [
+                        "Português, História ou Filosofia",
+                        "Matemática, Física ou Química",
+                        "Artes, Música ou Educação Física",
+                        "Biologia, Ciências ou Psicologia",
+                        "Matemática, Lógica ou Informática",
+                        "Administração, Economia ou Sociologia"
+                    ]
+                },
+                {
+                    question: "Como você descreveria sua forma de trabalhar?",
+                    options: [
+                        "Gosto de pesquisar e analisar informações",
+                        "Prefiro trabalhos manuais e concretos",
+                        "Sou criativo e penso fora da caixa",
+                        "Gosto de ajudar e interagir com pessoas",
+                        "Sou lógico e gosto de resolver problemas",
+                        "Sou organizado e gosto de liderar"
+                    ]
+                },
+                {
+                    question: "Qual desses ambientes de trabalho mais te atrai?",
+                    options: [
+                        "Biblioteca ou ambiente acadêmico",
+                        "Oficina ou laboratório",
+                        "Estúdio ou espaço cultural",
+                        "Hospital ou instituição de ajuda",
+                        "Escritório com tecnologia moderna",
+                        "Empresa ou ambiente corporativo"
+                    ]
+                },
+                {
+                    question: "Qual dessas habilidades você mais se identifica?",
+                    options: [
+                        "Comunicação e persuasão",
+                        "Habilidade manual e técnica",
+                        "Criatividade e expressão artística",
+                        "Empatia e cuidado com outros",
+                        "Raciocínio lógico e analítico",
+                        "Liderança e gestão de pessoas"
+                    ]
+                }
+            ];
+
+            // Profession results
+            const professions = {
+                humanas: {
+                    name: "Ciências Humanas",
+                    description: "Você tem perfil para áreas como Direito, Psicologia, Jornalismo ou História. Sua capacidade de analisar informações, comunicar-se bem e entender as pessoas são seus pontos fortes. No UniPonte, você pode encontrar projetos de pesquisa social, grupos de debate e muito mais!",
+                    icon: "fas fa-book"
+                },
+                engenharias: {
+                    name: "Engenharias",
+                    description: "Sua aptidão está em criar, construir e solucionar problemas concretos. Engenharia Civil, Elétrica, Mecânica ou outras engenharias podem ser seu caminho! No UniPonte, você encontrará projetos práticos de construção, robótica e desenvolvimento de produtos.",
+                    icon: "fas fa-cogs"
+                },
+                artes: {
+                    name: "Artes e Design",
+                    description: "Sua criatividade e expressividade indicam carreiras como Design, Arquitetura, Música ou Artes Visuais. No UniPonte, explore projetos de criação artística, design de produtos, produção cultural e muito mais!",
+                    icon: "fas fa-palette"
+                },
+                saude: {
+                    name: "Saúde e Bem-estar",
+                    description: "Sua vocação para cuidar de outros e interesse pelo funcionamento do corpo humano indicam carreiras como Medicina, Enfermagem, Educação Física ou Nutrição. No UniPonte, você pode participar de projetos de conscientização em saúde e pesquisa médica.",
+                    icon: "fas fa-heartbeat"
+                },
+                tecnologia: {
+                    name: "Tecnologia da Informação",
+                    description: "Seu raciocínio lógico e interesse por tecnologia apontam para carreiras como Ciência da Computação, Engenharia de Software ou Análise de Sistemas. No UniPonte, explore projetos de desenvolvimento de apps, inteligência artificial e games!",
+                    icon: "fas fa-laptop-code"
+                },
+                negocios: {
+                    name: "Negócios e Gestão",
+                    description: "Sua capacidade de organização e liderança sugere carreiras como Administração, Economia, Marketing ou Gestão de Recursos Humanos. No UniPonte, você pode participar de projetos de empreendedorismo e gestão de negócios.",
+                    icon: "fas fa-chart-line"
+                }
+            };
+
+            // DOM elements
+            const questionContainer = document.getElementById('question-container');
+            const progressBar = document.getElementById('progress-bar');
+            const prevBtn = document.getElementById('prev-btn');
+            const nextBtn = document.getElementById('next-btn');
+            const resultContainer = document.getElementById('result-container');
+            const resultProfession = document.getElementById('result-profession');
+            const resultDescription = document.getElementById('result-description');
+            const careerIcon = document.getElementById('career-icon');
+            const restartBtn = document.getElementById('restart-btn');
+            const exploreBtn = document.getElementById('explore-btn');
+
+            // Quiz state
+            let currentQuestion = 0;
+            let answers = [];
+            let categoryScores = {
+                humanas: 0,
+                engenharias: 0,
+                artes: 0,
+                saude: 0,
+                tecnologia: 0,
+                negocios: 0
+            };
+
+            // Initialize quiz
+            function initQuiz() {
+                displayQuestion();
+                updateProgressBar();
+                
+                // Event listeners
+                prevBtn.addEventListener('click', goToPreviousQuestion);
+                nextBtn.addEventListener('click', goToNextQuestion);
+                restartBtn.addEventListener('click', restartQuiz);
+                exploreBtn.addEventListener('click', function() {
+                    alert('Redirecionando para a página de projetos do UniPonte...');
+                    // In a real app, this would redirect to the projects page
+                });
+            }
+
+            // Display current question
+            function displayQuestion() {
+                const question = questions[currentQuestion];
+                
+                let optionsHTML = '';
+                question.options.forEach((option, index) => {
+                    const isSelected = answers[currentQuestion] === index;
+                    optionsHTML += `
+                        <div class="option ${isSelected ? 'selected' : ''}" data-index="${index}">
+                            ${option}
+                        </div>
+                    `;
+                });
+                
+                questionContainer.innerHTML = `
+                    <div class="question-container">
+                        <div class="question-number">Pergunta ${currentQuestion + 1} de ${questions.length}</div>
+                        <div class="question-text">${question.question}</div>
+                        <div class="options-container">
+                            ${optionsHTML}
+                        </div>
+                    </div>
+                `;
+                
+                // Add event listeners to options
+                document.querySelectorAll('.option').forEach(option => {
+                    option.addEventListener('click', function() {
+                        const selectedIndex = parseInt(this.getAttribute('data-index'));
+                        answers[currentQuestion] = selectedIndex;
+                        displayQuestion();
+                    });
+                });
+                
+                // Update buttons
+                prevBtn.disabled = currentQuestion === 0;
+                if (currentQuestion === questions.length - 1) {
+                    nextBtn.innerHTML = 'Ver Resultado <i class="fas fa-check"></i>';
+                } else {
+                    nextBtn.innerHTML = 'Próxima <i class="fas fa-arrow-right"></i>';
+                }
+            }
+
+            // Update progress bar
+            function updateProgressBar() {
+                const progress = ((currentQuestion + 1) / questions.length) * 100;
+                progressBar.style.width = `${progress}%`;
+            }
+
+            // Navigate to next question
+            function goToNextQuestion() {
+                if (answers[currentQuestion] === undefined) {
+                    alert('Por favor, selecione uma opção antes de continuar.');
+                    return;
+                }
+                
+                if (currentQuestion < questions.length - 1) {
+                    currentQuestion++;
+                    displayQuestion();
+                    updateProgressBar();
+                } else {
+                    calculateResult();
+                    showResult();
+                }
+            }
+
+            // Navigate to previous question
+            function goToPreviousQuestion() {
+                if (currentQuestion > 0) {
+                    currentQuestion--;
+                    displayQuestion();
+                    updateProgressBar();
+                }
+            }
+
+            // Calculate quiz result
+            function calculateResult() {
+                // Reset scores
+                for (let category in categoryScores) {
+                    categoryScores[category] = 0;
+                }
+                
+                // Calculate scores based on answers
+                answers.forEach((answer, questionIndex) => {
+                    // Each answer corresponds to a category
+                    const categories = ['humanas', 'engenharias', 'artes', 'saude', 'tecnologia', 'negocios'];
+                    if (categories[answer]) {
+                        categoryScores[categories[answer]]++;
+                    }
+                });
+                
+                // Find the category with the highest score
+                let maxScore = 0;
+                let resultCategory = 'tecnologia'; // Default
+                
+                for (let category in categoryScores) {
+                    if (categoryScores[category] > maxScore) {
+                        maxScore = categoryScores[category];
+                        resultCategory = category;
+                    }
+                }
+                
+                return resultCategory;
+            }
+
+            // Show quiz result
+            function showResult() {
+                const resultCategory = calculateResult();
+                const profession = professions[resultCategory];
+                
+                resultProfession.textContent = profession.name;
+                resultDescription.textContent = profession.description;
+                careerIcon.className = profession.icon;
+                
+                document.querySelector('.quiz-body').style.display = 'none';
+                resultContainer.style.display = 'block';
+            }
+
+            // Restart quiz
+            function restartQuiz() {
+                currentQuestion = 0;
+                answers = [];
+                
+                for (let category in categoryScores) {
+                    categoryScores[category] = 0;
+                }
+                
+                document.querySelector('.quiz-body').style.display = 'block';
+                resultContainer.style.display = 'none';
+                
+                displayQuestion();
+                updateProgressBar();
+            }
+
+            // Initialize the quiz
+            initQuiz();
+        });
+    </script>
+</body>
+</html>

@@ -1,0 +1,889 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>UniPonte - Conectando estudantes através de projetos</title>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+    <style>
+        :root {
+            --primary: #4A6BDF;
+            --secondary: #FF6B6B;
+            --accent: #4ECDC4;
+            --light: #F7F9FC;
+            --dark: #333333;
+            --success: #28a745;
+            --warning: #ffc107;
+            --danger: #dc3545;
+        }
+        
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+        }
+        
+        body {
+            background-color: #f5f7fa;
+            color: var(--dark);
+            line-height: 1.6;
+        }
+        
+        .container {
+            width: 100%;
+            max-width: 1200px;
+            margin: 0 auto;
+            padding: 0 20px;
+        }
+        
+        /* Header Styles */
+        header {
+            background: linear-gradient(135deg, var(--primary), #304fca);
+            color: white;
+            padding: 15px 0;
+            box-shadow: 0 4px 12px rgba(0, 0, 0, 0.1);
+            position: sticky;
+            top: 0;
+            z-index: 100;
+        }
+        
+        .header-content {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+        }
+        
+        .logo {
+            display: flex;
+            align-items: center;
+            gap: 10px;
+            font-size: 1.5rem;
+            font-weight: 700;
+        }
+        
+        .logo i {
+            font-size: 1.8rem;
+        }
+        
+        nav ul {
+            display: flex;
+            align-items: center;
+            list-style: none;
+            gap: 25px;
+        }
+        
+        nav a {
+            color: white;
+            text-decoration: none;
+            font-weight: 500;
+            transition: opacity 0.3s;
+        }
+        
+        nav a:hover {
+            opacity: 0.8;
+        }
+        
+        .auth-buttons {
+            display: flex;
+            gap: 10px;
+        }
+        
+        .btn {
+            padding: 8px 16px;
+            border-radius: 50px;
+            border: none;
+            font-weight: 600;
+            cursor: pointer;
+            transition: all 0.3s;
+        }
+        
+        .btn-outline {
+            background: transparent;
+            border: 2px solid white;
+            color: white;
+        }
+        
+        .btn-primary {
+            background: var(--secondary);
+            color: white;
+        }
+        
+        .btn:hover {
+            transform: translateY(-2px);
+            box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+        }
+        
+        /* Hero Section */
+        .hero {
+            padding: 60px 0;
+            text-align: center;
+            background: linear-gradient(rgba(255, 255, 255, 0.9), rgba(255, 255, 255, 0.9)), url('data:image/svg+xml;utf8,<svg xmlns="http://www.w3.org/2000/svg" width="100" height="100" viewBox="0 0 100 100"><rect fill="%234A6BDF" opacity="0.2" width="10" height="10"/></svg>');
+            background-size: 20px 20px;
+        }
+        
+        .hero h1 {
+            font-size: 2.5rem;
+            margin-bottom: 20px;
+            color: var(--primary);
+        }
+        
+        .hero p {
+            font-size: 1.2rem;
+            max-width: 700px;
+            margin: 0 auto 30px;
+            color: var(--dark);
+        }
+        
+        /* Filter Section */
+        .filters {
+            padding: 20px 0;
+            background: white;
+            box-shadow: 0 4px 12px rgba(0, 0, 0, 0.05);
+        }
+        
+        .filter-title {
+            text-align: center;
+            margin-bottom: 20px;
+            font-size: 1.2rem;
+        }
+        
+        .filter-options {
+            display: flex;
+            justify-content: center;
+            flex-wrap: wrap;
+            gap: 10px;
+        }
+        
+        .filter-btn {
+            padding: 8px 20px;
+            border: 2px solid var(--primary);
+            border-radius: 50px;
+            background: white;
+            color: var(--primary);
+            font-weight: 600;
+            cursor: pointer;
+            transition: all 0.3s;
+        }
+        
+        .filter-btn.active, .filter-btn:hover {
+            background: var(--primary);
+            color: white;
+        }
+        
+        /* Projects Grid */
+        .projects-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fill, minmax(300px, 1fr));
+            gap: 25px;
+            padding: 40px 0;
+        }
+        
+        .project-card {
+            background: white;
+            border-radius: 12px;
+            overflow: hidden;
+            box-shadow: 0 5px 15px rgba(0, 0, 0, 0.08);
+            transition: transform 0.3s, box-shadow 0.3s;
+        }
+        
+        .project-card:hover {
+            transform: translateY(-5px);
+            box-shadow: 0 10px 25px rgba(0, 0, 0, 0.15);
+        }
+        
+        .card-image {
+            height: 180px;
+            background-color: #4A6BDF;
+            background-size: cover;
+            background-position: center;
+            position: relative;
+        }
+        
+        .card-difficulty {
+            position: absolute;
+            top: 15px;
+            right: 15px;
+            padding: 5px 12px;
+            border-radius: 20px;
+            font-size: 0.8rem;
+            font-weight: 600;
+            color: white;
+        }
+        
+        .beginner {
+            background: var(--success);
+        }
+        
+        .intermediate {
+            background: var(--warning);
+            color: var(--dark);
+        }
+        
+        .advanced {
+            background: var(--danger);
+        }
+        
+        .card-content {
+            padding: 20px;
+        }
+        
+        .card-content h3 {
+            margin-bottom: 10px;
+            color: var(--dark);
+        }
+        
+        .card-university {
+            display: flex;
+            align-items: center;
+            gap: 8px;
+            color: #666;
+            margin-bottom: 15px;
+            font-size: 0.9rem;
+        }
+        
+        .card-meta {
+            display: flex;
+            justify-content: space-between;
+            color: #777;
+            font-size: 0.9rem;
+            border-top: 1px solid #eee;
+            padding-top: 15px;
+        }
+        
+        .card-meta div {
+            display: flex;
+            align-items: center;
+            gap: 5px;
+        }
+        
+        /* Project Details Modal */
+        .modal {
+            display: none;
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            background: rgba(0, 0, 0, 0.7);
+            z-index: 1000;
+            overflow-y: auto;
+        }
+        
+        .modal-content {
+            background: white;
+            margin: 50px auto;
+            border-radius: 12px;
+            max-width: 800px;
+            width: 90%;
+            animation: modalFade 0.3s;
+        }
+        
+        @keyframes modalFade {
+            from {
+                opacity: 0;
+                transform: translateY(-30px);
+            }
+            to {
+                opacity: 1;
+                transform: translateY(0);
+            }
+        }
+        
+        .modal-header {
+            padding: 20px;
+            border-bottom: 1px solid #eee;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+        }
+        
+        .close-modal {
+            font-size: 1.5rem;
+            cursor: pointer;
+            color: #777;
+        }
+        
+        .modal-body {
+            padding: 20px;
+        }
+        
+        .project-detail {
+            margin-bottom: 25px;
+        }
+        
+        .project-detail h3 {
+            margin-bottom: 10px;
+            color: var(--primary);
+        }
+        
+        .materials-list, .steps-list {
+            padding-left: 20px;
+            margin-top: 10px;
+        }
+        
+        .contact-info {
+            background: #f9f9f9;
+            padding: 15px;
+            border-radius: 8px;
+            margin-top: 20px;
+        }
+        
+        /* Form Styles */
+        .form-section {
+            display: none;
+            padding: 40px 0;
+            background: white;
+        }
+        
+        .form-container {
+            max-width: 700px;
+            margin: 0 auto;
+            padding: 30px;
+            background: white;
+            border-radius: 12px;
+            box-shadow: 0 5px 20px rgba(0, 0, 0, 0.1);
+        }
+        
+        .form-title {
+            text-align: center;
+            margin-bottom: 30px;
+            color: var(--primary);
+        }
+        
+        .form-group {
+            margin-bottom: 20px;
+        }
+        
+        .form-group label {
+            display: block;
+            margin-bottom: 8px;
+            font-weight: 600;
+        }
+        
+        .form-control {
+            width: 100%;
+            padding: 12px 15px;
+            border: 1px solid #ddd;
+            border-radius: 8px;
+            font-size: 1rem;
+        }
+        
+        textarea.form-control {
+            min-height: 120px;
+            resize: vertical;
+        }
+        
+        .form-submit {
+            text-align: center;
+            margin-top: 30px;
+        }
+        
+        /* Footer */
+        footer {
+            background: var(--dark);
+            color: white;
+            padding: 40px 0 20px;
+            margin-top: 60px;
+        }
+        
+        .footer-content {
+            display: flex;
+            flex-wrap: wrap;
+            justify-content: space-between;
+            gap: 30px;
+        }
+        
+        .footer-section {
+            flex: 1;
+            min-width: 250px;
+        }
+        
+        .footer-section h3 {
+            margin-bottom: 20px;
+            font-size: 1.2rem;
+        }
+        
+        .footer-links {
+            list-style: none;
+        }
+        
+        .footer-links li {
+            margin-bottom: 10px;
+        }
+        
+        .footer-links a {
+            color: #ddd;
+            text-decoration: none;
+        }
+        
+        .footer-links a:hover {
+            color: white;
+        }
+        
+        .social-links {
+            display: flex;
+            gap: 15px;
+            margin-top: 15px;
+        }
+        
+        .social-links a {
+            color: white;
+            font-size: 1.5rem;
+        }
+        
+        .copyright {
+            text-align: center;
+            margin-top: 40px;
+            padding-top: 20px;
+            border-top: 1px solid #444;
+        }
+        
+        /* Responsive Design */
+        @media (max-width: 768px) {
+            .header-content {
+                flex-direction: column;
+                gap: 15px;
+            }
+            
+            nav ul {
+                gap: 15px;
+                flex-wrap: wrap;
+                justify-content: center;
+            }
+            
+            .hero h1 {
+                font-size: 2rem;
+            }
+            
+            .hero p {
+                font-size: 1rem;
+            }
+            
+            .modal-content {
+                width: 95%;
+                margin: 20px auto;
+            }
+        }
+    </style>
+</head>
+<body>
+    <!-- Header -->
+    <header>
+        <div class="container header-content">
+            <div class="logo">
+                <i class="fas fa-graduation-cap"></i>
+                <span>UniPonte</span>
+            </div>
+            
+            <nav>
+                <ul>
+                    <li><a href="index.html" class="active">Início</a></li>
+                  <!-- <li><a href="#" id="show-form-link">Cadastrar Projeto</a></li>  --> 
+                    <li><a href="quiz.html">Quiz</a></li>
+                    <li>
+                        <button class="btn btn-outline" onclick="window.location.href='login.html'">Fazer Login</button>
+                    </li>
+                </ul>
+            </nav>
+            
+            <div class="auth-buttons">
+               <!-- <button class="btn btn-primary" onclick="window.location.href='login.html'">Cadastrar</button>-->
+            </div>
+        </div>
+    </header>
+    
+    <!-- Hero Section -->
+    <section class="hero">
+        <div class="container">
+            <h1>Conectamos alunos do ensino médio com universitários</h1>
+            <p>Participe de projetos acadêmicos práticos e ganhe experiência com a orientação de universitários</p>
+            <button class="btn btn-primary" id="show-form-link">Cadastrar Projeto</button>
+            <a href="#" ></a>
+        </div>
+    </section>
+    
+    <!-- Filter Section -->
+    <section class="filters">
+        <div class="container">
+            <h2 class="filter-title">Filtrar por área de interesse</h2>
+            <div class="filter-options">
+                <button class="filter-btn active">Todas</button>
+                <button class="filter-btn">Tecnologia</button>
+                <button class="filter-btn">Saúde</button>
+                <button class="filter-btn">Ciências</button>
+                <button class="filter-btn">Humanas</button>
+                <button class="filter-btn">Artes</button>
+                <button class="filter-btn">Negócios</button>
+                <button class="filter-btn">Engenharia</button>
+            </div>
+        </div>
+    </section>
+    
+    <!-- Projects Grid -->
+    <section class="container">
+        <div class="projects-grid">
+            <!-- Project Card 1 -->
+             <a href="projeto.html">
+            <div class="project-card">
+                <div class="card-image" style="background-color: #4A6BDF;">
+                    <div class="card-difficulty beginner">Iniciante</div>
+                </div>
+                <div class="card-content">
+                    <h3>App de Reciclagem Sustentável</h3>
+                    <div class="card-university">
+                        <i class="fas fa-university"></i>
+                        <span>Universidade Federal de Tecnologia</span>
+                    </div>
+                    <div class="card-meta">
+                        <div><i class="far fa-clock"></i> 2 meses</div>
+                        <div><i class="fas fa-tag"></i> Tecnologia</div>
+                    </div>
+                </div>
+            </div>
+            </a>
+            <!-- Project Card 2 -->
+            <div class="project-card">
+                <div class="card-image" style="background-color: #4ECDC4;">
+                    <div class="card-difficulty intermediate">Intermediário</div>
+                </div>
+                <div class="card-content">
+                    <h3>Análise de Dados em Saúde Pública</h3>
+                    <div class="card-university">
+                        <i class="fas fa-university"></i>
+                        <span>Faculdade de Medicina</span>
+                    </div>
+                    <div class="card-meta">
+                        <div><i class="far fa-clock"></i> 3 meses</div>
+                        <div><i class="fas fa-tag"></i> Saúde</div>
+                    </div>
+                </div>
+            </div>
+            
+            <!-- Project Card 3 -->
+            <div class="project-card">
+                <div class="card-image" style="background-color: #FF6B6B;">
+                    <div class="card-difficulty advanced">Avançado</div>
+                </div>
+                <div class="card-content">
+                    <h3>Robótica Educacional com Arduino</h3>
+                    <div class="card-university">
+                        <i class="fas fa-university"></i>
+                        <span>Instituto de Engenharia</span>
+                    </div>
+                    <div class="card-meta">
+                        <div><i class="far fa-clock"></i> 6 meses</div>
+                        <div><i class="fas fa-tag"></i> Engenharia</div>
+                    </div>
+                </div>
+            </div>
+            
+            <!-- Project Card 4 -->
+            <div class="project-card">
+                <div class="card-image" style="background-color: #FFA726;">
+                    <div class="card-difficulty beginner">Iniciante</div>
+                </div>
+                <div class="card-content">
+                    <h3>Oficina de Teatro Comunitário</h3>
+                    <div class="card-university">
+                        <i class="fas fa-university"></i>
+                        <span>Escola de Artes</span>
+                    </div>
+                    <div class="card-meta">
+                        <div><i class="far fa-clock"></i> 1 mês</div>
+                        <div><i class="fas fa-tag"></i> Artes</div>
+                    </div>
+                </div>
+            </div>
+            
+            <!-- Project Card 5 -->
+            <div class="project-card">
+                <div class="card-image" style="background-color: #42A5F5;">
+                    <div class="card-difficulty intermediate">Intermediário</div>
+                </div>
+                <div class="card-content">
+                    <h3>Startup de Impacto Social</h3>
+                    <div class="card-university">
+                        <i class="fas fa-university"></i>
+                        <span>Faculdade de Administração</span>
+                    </div>
+                    <div class="card-meta">
+                        <div><i class="far fa-clock"></i> 4 meses</div>
+                        <div><i class="fas fa-tag"></i> Negócios</div>
+                    </div>
+                </div>
+            </div>
+            
+            <!-- Project Card 6 -->
+            <div class="project-card">
+                <div class="card-image" style="background-color: #66BB6A;">
+                    <div class="card-difficulty beginner">Iniciante</div>
+                </div>
+                <div class="card-content">
+                    <h3>Estudo de Ecossistemas Locais</h3>
+                    <div class="card-university">
+                        <i class="fas fa-university"></i>
+                        <span>Universidade de Ciências</span>
+                    </div>
+                    <div class="card-meta">
+                        <div><i class="far fa-clock"></i> 2 meses</div>
+                        <div><i class="fas fa-tag"></i> Ciências</div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+    
+    <!-- Project Details Modal -->
+    <div class="modal" id="project-modal">
+        <div class="modal-content">
+            <div class="modal-header">
+                <h2>App de Reciclagem Sustentável</h2>
+                <span class="close-modal">&times;</span>
+            </div>
+            <div class="modal-body">
+                <div class="project-detail">
+                    <h3>Descrição</h3>
+                    <p>Desenvolvimento de um aplicativo mobile que ajuda usuários a identificar tipos de materiais recicláveis e localizar pontos de coleta próximos. O projeto inclui interface amigável e sistema de recompensas.</p>
+                </div>
+                
+                <div class="project-detail">
+                    <h3>Objetivos</h3>
+                    <ul class="materials-list">
+                        <li>Conscientizar sobre a importância da reciclagem</li>
+                        <li>Facilitar o descarte correto de materiais recicláveis</li>
+                        <li>Criar uma rede de pontos de coleta colaborativos</li>
+                        <li>Implementar sistema de gamificação para incentivar usuários</li>
+                    </ul>
+                </div>
+                
+                <div class="project-detail">
+                    <h3>Materiais Utilizados</h3>
+                    <ul class="materials-list">
+                        <li>React Native para desenvolvimento do app</li>
+                        <li>Firebase para backend e autenticação</li>
+                        <li>Google Maps API para geolocalização</li>
+                        <li>Figma para prototipagem da interface</li>
+                    </ul>
+                </div>
+                
+                <div class="project-detail">
+                    <h3>Etapas do Projeto</h3>
+                    <ol class="steps-list">
+                        <li>Pesquisa e definição de requisitos</li>
+                        <li>Prototipação da interface do usuário</li>
+                        <li>Desenvolvimento do frontend</li>
+                        <li>Implementação do backend</li>
+                        <li>Testes com usuários</li>
+                        <li>Publicação na Play Store e App Store</li>
+                    </ol>
+                </div>
+                
+                <div class="contact-info">
+                    <h3>Contato</h3>
+                    <p><strong>Universidade:</strong> Universidade Federal de Tecnologia</p>
+                    <p><strong>Universitário:</strong> João Silva</p>
+                    <p><strong>Email:</strong> joao.silva@uft.edu.br</p>
+                    <p><strong>Telefone:</strong> (11) 99999-9999</p>
+                </div>
+            </div>
+        </div>
+    </div>
+    
+    <!-- Project Form Section -->
+    <section class="form-section" id="project-form">
+        <div class="container">
+            <div class="form-container">
+                <h2 class="form-title">Cadastrar Novo Projeto</h2>
+                <form id="add-project-form">
+                    <div class="form-group">
+                        <label for="project-name">Nome do Projeto</label>
+                        <input type="text" id="project-name" class="form-control" required>
+                    </div>
+                    
+                    <div class="form-group">
+                        <label for="project-area">Área de Interesse</label>
+                        <select id="project-area" class="form-control" required>
+                            <option value="">Selecione uma área</option>
+                            <option value="Tecnologia">Tecnologia</option>
+                            <option value="Saúde">Saúde</option>
+                            <option value="Ciências">Ciências</option>
+                            <option value="Humanas">Humanas</option>
+                            <option value="Artes">Artes</option>
+                            <option value="Negócios">Negócios</option>
+                            <option value="Engenharia">Engenharia</option>
+                        </select>
+                    </div>
+                    
+                    <div class="form-group">
+                        <label for="university">Universidade</label>
+                        <input type="text" id="university" class="form-control" required>
+                    </div>
+                    
+                    <div class="form-group">
+                        <label for="difficulty">Nível de Dificuldade</label>
+                        <select id="difficulty" class="form-control" required>
+                            <option value="">Selecione o nível</option>
+                            <option value="Iniciante">Iniciante</option>
+                            <option value="Intermediário">Intermediário</option>
+                            <option value="Avançado">Avançado</option>
+                        </select>
+                    </div>
+                    
+                    <div class="form-group">
+                        <label for="duration">Tempo Estimado (meses)</label>
+                        <input type="number" id="duration" class="form-control" min="1" max="12" required>
+                    </div>
+                    
+                    <div class="form-group">
+                        <label for="description">Descrição do Projeto</label>
+                        <textarea id="description" class="form-control" required></textarea>
+                    </div>
+                    
+                    <div class="form-group">
+                        <label for="objectives">Objetivos</label>
+                        <textarea id="objectives" class="form-control" required></textarea>
+                    </div>
+                    
+                    <div class="form-group">
+                        <label for="materials">Materiais Utilizados</label>
+                        <textarea id="materials" class="form-control" required></textarea>
+                    </div>
+                    
+                    <div class="form-group">
+                        <label for="steps">Etapas do Projeto</label>
+                        <textarea id="steps" class="form-control" required></textarea>
+                    </div>
+                    
+                    <div class="form-group">
+                        <label for="contact-name">Seu Nome</label>
+                        <input type="text" id="contact-name" class="form-control" required>
+                    </div>
+                    
+                    <div class="form-group">
+                        <label for="contact-email">Seu Email</label>
+                        <input type="email" id="contact-email" class="form-control" required>
+                    </div>
+                    
+                    <div class="form-group">
+                        <label for="contact-phone">Seu Telefone</label>
+                        <input type="tel" id="contact-phone" class="form-control">
+                    </div>
+                    
+                    <div class="form-submit">
+                        <button type="submit" class="btn btn-primary">Cadastrar Projeto</button>
+                    </div>
+                </form>
+            </div>
+        </div>
+    </section>
+    
+    <!-- Footer -->
+    <footer>
+        <div class="container">
+            <div class="footer-content">
+                <div class="footer-section">
+                    <h3>UniPonte</h3>
+                    <p>Conectando alunos do ensino médio com universitários através de projetos acadêmicos práticos.</p>
+                    <div class="social-links">
+                        <a href="#"><i class="fab fa-facebook"></i></a>
+                        <a href="#"><i class="fab fa-instagram"></i></a>
+                        <a href="#"><i class="fab fa-twitter"></i></a>
+                        <a href="#"><i class="fab fa-linkedin"></i></a>
+                    </div>
+                </div>
+                
+                <div class="footer-section">
+                    <h3>Links Rápidos</h3>
+                    <ul class="footer-links">
+                        <li><a href="#">Início</a></li>
+                        <li><a href="#">Projetos</a></li>
+                        <li><a href="#">Cadastrar Projeto</a></li>
+                        <li><a href="#">Sobre Nós</a></li>
+                        <li><a href="#">Contato</a></li>
+                    </ul>
+                </div>
+                
+                <div class="footer-section">
+                    <h3>Contato</h3>
+                    <p><i class="fas fa-map-marker-alt"></i> Av. das Universidades, 123</p>
+                    <p><i class="fas fa-phone"></i> (11) 3456-7890</p>
+                    <p><i class="fas fa-envelope"></i> contato@uniponte.com</p>
+                </div>
+            </div>
+            
+            <div class="copyright">
+                <p>&copy; 2023 UniPonte - Todos os direitos reservados</p>
+            </div>
+        </div>
+    </footer>
+    
+    <script>
+        // Modal functionality
+        const projectCards = document.querySelectorAll('.project-card');
+        const modal = document.getElementById('project-modal');
+        const closeModal = document.querySelector('.close-modal');
+        const showFormLink = document.getElementById('show-form-link');
+        const projectForm = document.getElementById('project-form');
+        const addProjectForm = document.getElementById('add-project-form');
+        const filterButtons = document.querySelectorAll('.filter-btn');
+        
+        // Open modal when project card is clicked
+        projectCards.forEach(card => {
+            card.addEventListener('click', () => {
+                modal.style.display = 'block';
+                document.body.style.overflow = 'hidden';
+            });
+        });
+        
+        // Close modal
+        closeModal.addEventListener('click', () => {
+            modal.style.display = 'none';
+            document.body.style.overflow = 'auto';
+        });
+        
+        // Close modal when clicking outside
+        window.addEventListener('click', (e) => {
+            if (e.target === modal) {
+                modal.style.display = 'none';
+                document.body.style.overflow = 'auto';
+            }
+        });
+        
+        // Show project form
+        showFormLink.addEventListener('click', (e) => {
+            e.preventDefault();
+            projectForm.style.display = 'block';
+            window.scrollTo({
+                top: projectForm.offsetTop - 20,
+                behavior: 'smooth'
+            });
+        });
+        
+        // Filter functionality
+        filterButtons.forEach(button => {
+            button.addEventListener('click', () => {
+                // Remove active class from all buttons
+                filterButtons.forEach(btn => btn.classList.remove('active'));
+                
+                // Add active class to clicked button
+                button.classList.add('active');
+                
+                // Here would be the actual filtering logic
+                // For this example, we're just simulating
+            });
+        });
+        
+        // Form submission
+        addProjectForm.addEventListener('submit', (e) => {
+            e.preventDefault();
+            
+            // Here would be the actual form submission logic
+            // For this example, we'll just show an alert and hide the form
+            alert('Projeto cadastrado com sucesso! Em breve estará disponível para os alunos.');
+            projectForm.style.display = 'none';
+            addProjectForm.reset();
+        });
+    </script>
+</body>
+</html>
