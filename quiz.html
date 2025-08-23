@@ -39,6 +39,31 @@
             border-radius: 20px;
             box-shadow: 0 10px 30px rgba(0, 0, 0, 0.1);
             overflow: hidden;
+            position: relative;
+        }
+        
+        .close-btn {
+            position: absolute;
+            top: 20px;
+            right: 20px;
+            width: 40px;
+            height: 40px;
+            border-radius: 50%;
+            background: rgba(255, 255, 255, 0.9);
+            color: #777;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            cursor: pointer;
+            z-index: 10;
+            transition: all 0.3s;
+            box-shadow: 0 2px 10px rgba(0, 0, 0, 0.1);
+        }
+        
+        .close-btn:hover {
+            background: var(--secondary);
+            color: white;
+            transform: scale(1.1);
         }
         
         .quiz-header {
@@ -46,6 +71,7 @@
             color: white;
             padding: 30px;
             text-align: center;
+            position: relative;
         }
         
         .quiz-header h1 {
@@ -153,6 +179,11 @@
             color: white;
         }
         
+        .btn-close {
+            background: var(--light);
+            color: var(--dark);
+        }
+        
         .quiz-btn:hover {
             transform: translateY(-2px);
             box-shadow: 0 5px 15px rgba(0, 0, 0, 0.1);
@@ -212,6 +243,70 @@
             color: var(--primary);
         }
         
+        /* Modal de confirmação para sair */
+        .exit-modal {
+            display: none;
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            background: rgba(0, 0, 0, 0.7);
+            z-index: 1000;
+            justify-content: center;
+            align-items: center;
+        }
+        
+        .exit-modal-content {
+            background: white;
+            padding: 30px;
+            border-radius: 12px;
+            max-width: 400px;
+            width: 90%;
+            text-align: center;
+            box-shadow: 0 5px 25px rgba(0, 0, 0, 0.2);
+        }
+        
+        .exit-modal h2 {
+            margin-bottom: 15px;
+            color: var(--dark);
+        }
+        
+        .exit-modal p {
+            margin-bottom: 25px;
+            color: #666;
+        }
+        
+        .exit-modal-buttons {
+            display: flex;
+            justify-content: center;
+            gap: 15px;
+        }
+        
+        .modal-btn {
+            padding: 10px 20px;
+            border-radius: 50px;
+            border: none;
+            font-weight: 600;
+            cursor: pointer;
+            transition: all 0.3s;
+        }
+        
+        .modal-btn-cancel {
+            background: var(--light);
+            color: var(--dark);
+        }
+        
+        .modal-btn-confirm {
+            background: var(--secondary);
+            color: white;
+        }
+        
+        .modal-btn:hover {
+            transform: translateY(-2px);
+            box-shadow: 0 3px 10px rgba(0, 0, 0, 0.1);
+        }
+        
         @media (max-width: 768px) {
             .quiz-header h1 {
                 font-size: 1.8rem;
@@ -230,11 +325,24 @@
                 width: 100%;
                 justify-content: center;
             }
+            
+            .result-actions {
+                flex-direction: column;
+            }
+            
+            .exit-modal-buttons {
+                flex-direction: column;
+            }
         }
     </style>
 </head>
 <body>
     <div class="container">
+        <!-- Botão de fechar -->
+        <div class="close-btn" id="close-btn">
+            <i class="fas fa-times"></i>
+        </div>
+        
         <div class="quiz-header">
             <h1><i class="fas fa-graduation-cap"></i> Quiz de Profissões</h1>
             <p>Descubra qual carreira combina mais com você!</p>
@@ -277,6 +385,21 @@
                 <button class="quiz-btn btn-primary" id="explore-btn">
                     <i class="fas fa-search"></i> Explorar Projetos
                 </button>
+                <button class="quiz-btn btn-close" id="close-result-btn">
+                    <i class="fas fa-times"></i> Fechar
+                </button>
+            </div>
+        </div>
+    </div>
+
+    <!-- Modal de confirmação para sair -->
+    <div class="exit-modal" id="exit-modal">
+        <div class="exit-modal-content">
+            <h2>Sair do Quiz?</h2>
+            <p>Se você sair agora, seu progresso será perdido. Tem certeza que deseja sair?</p>
+            <div class="exit-modal-buttons">
+                <button class="modal-btn modal-btn-cancel" id="cancel-exit">Continuar Quiz</button>
+                <button class="modal-btn modal-btn-confirm" id="confirm-exit">Sair</button>
             </div>
         </div>
     </div>
@@ -387,6 +510,11 @@
             const careerIcon = document.getElementById('career-icon');
             const restartBtn = document.getElementById('restart-btn');
             const exploreBtn = document.getElementById('explore-btn');
+            const closeBtn = document.getElementById('close-btn');
+            const closeResultBtn = document.getElementById('close-result-btn');
+            const exitModal = document.getElementById('exit-modal');
+            const cancelExit = document.getElementById('cancel-exit');
+            const confirmExit = document.getElementById('confirm-exit');
 
             // Quiz state
             let currentQuestion = 0;
@@ -410,9 +538,13 @@
                 nextBtn.addEventListener('click', goToNextQuestion);
                 restartBtn.addEventListener('click', restartQuiz);
                 exploreBtn.addEventListener('click', function() {
-                    alert('Redirecionando para a página de projetos do UniPonte...');
+                    // alert('Redirecionando para a página de projetos do UniPonte...');
                     // In a real app, this would redirect to the projects page
                 });
+                closeBtn.addEventListener('click', confirmExitQuiz);
+                closeResultBtn.addEventListener('click', exitQuiz);
+                cancelExit.addEventListener('click', closeExitModal);
+                confirmExit.addEventListener('click', exitQuiz);
             }
 
             // Display current question
@@ -546,6 +678,24 @@
                 
                 displayQuestion();
                 updateProgressBar();
+            }
+
+            // Confirm exit quiz
+            function confirmExitQuiz() {
+                exitModal.style.display = 'flex';
+            }
+
+            // Close exit modal
+            function closeExitModal() {
+                exitModal.style.display = 'none';
+            }
+
+            // Exit quiz
+            function exitQuiz() {
+                //alert('Redirecionando para a página anterior...');
+                // In a real app, this would redirect to the previous page
+                // For this example, we'll just go back in history
+                window.history.back();
             }
 
             // Initialize the quiz
