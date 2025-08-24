@@ -551,8 +551,8 @@ a{
                     </div>
 
                      <div class="form-group" id="cpf-aluno">
-                        <label for="register-name">CPF</label>
-                        <input type="text" id="register-name" class="form-control" placeholder="000.000.000-00"
+                        <label for="register-cpf">CPF</label>
+                        <input type="text" id="register-cpf" class="form-control" placeholder="000.000.000-00"
                             required>
                     </div>
 
@@ -738,7 +738,8 @@ a{
             loginForm.addEventListener('submit', function (e) {
                 e.preventDefault();
                 const userType = document.querySelector('#login-user-type .user-type-btn.active').dataset.type;
-                alert(`Login como ${userType} realizado com sucesso! Redirecionando...`);
+                window.location.href="index.html"
+                window.localStorage.setItem("logged", true)
                 // Em uma aplicação real, aqui você faria a autenticação
             });
 

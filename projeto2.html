@@ -4,8 +4,8 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>App de Reciclagem Sustentável - UniPonte</title>
-        <link rel="shortcut icon" href="icon.png" type="image/x-icon">
+    <title>Análise de Dados em Saúde Pública - UniPonte</title>
+    <link rel="shortcut icon" href="icon.png" type="image/x-icon">
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
     <style>
         :root {
@@ -100,7 +100,6 @@
         .project-hero {
             display: flex;
             gap: 30px;
-          /*  margin: 30px 0;  */
             flex-wrap: wrap;
         }
 
@@ -110,9 +109,10 @@
             border-radius: 12px;
             overflow: hidden;
             box-shadow: 0 5px 15px rgba(0, 0, 0, 0.1);
-            /* background: linear-gradient(135deg, var(--primary), #304fca); */
-            background-image: url('https://blog.brkambiental.com.br/wp-content/uploads/2019/07/original-1a6b1136e3124ca180ad5edd12ef61f3.jpg');
+            background-image: url('https://www.drgbrasil.com.br/wp-content/uploads/2022/01/Bases-de-dados-em-saude-txt.jpg');
             height: 300px;
+            background-size: cover;
+            background-position: center;
         }
 
         .project-info {
@@ -500,7 +500,6 @@
             border-bottom: 1px solid #eee;
             transition: background 0.3s;
             background-color: white;
-
             box-shadow: 0 5px 20px rgba(0, 0, 0, 0.1);
         }
 
@@ -577,23 +576,19 @@
             <nav>
                 <ul>
                     <li><a href="index.html">Projetos</a></li>
-                    <li><a href="empresas.html" class="active">Empresas Parceiras</a></li>
-                    <!-- <li><a href="#" id="show-form-link">Cadastrar Projeto</a></li>  -->
+                    <li><a href="empresas.html">Empresas Parceiras</a></li>
                     <li><a href="quiz.html">Quiz</a></li>
                     <li id="login-li">
                         <button class="btn btn-outline" onclick="window.location.href='login.html'">Fazer Login</button>
                     </li>
                 </ul>
             </nav>
-
-
         </div>
     </header>
 
     <!-- Breadcrumb -->
     <div class="container breadcrumb">
-        <a href="index.html">Início</a> > <a href="index.html">Projetos</a> > <a href="index.html">Tecnologia</a> > App
-        de Reciclagem Sustentável
+        <a href="index.html">Início</a> > <a href="index.html">Projetos</a> > <a href="index.html">Saúde</a> > Análise de Dados em Saúde Pública
     </div>
 
     <!-- Project Hero -->
@@ -604,29 +599,27 @@
             </div>
 
             <div class="project-info">
-                <h1 class="project-title">App de Reciclagem Sustentável</h1>
+                <h1 class="project-title">Análise de Dados em Saúde Pública</h1>
 
                 <div class="project-meta">
                     <div class="meta-item">
                         <i class="fas fa-university"></i>
-                        <span>Universidade Federal de Tecnologia</span>
+                        <span>Faculdade de Medicina</span>
                     </div>
                     <div class="meta-item">
                         <i class="fas fa-tag"></i>
-                        <span>Tecnologia</span>
+                        <span>Saúde</span>
                     </div>
                     <div class="meta-item">
                         <i class="fas fa-clock"></i>
-                        <span>2 meses</span>
+                        <span>3 meses</span>
                     </div>
                     <div class="meta-item">
-                        <span class="difficulty-badge beginner">Iniciante</span>
+                        <span class="difficulty-badge intermediate">Intermediário</span>
                     </div>
                 </div>
 
-                <p>Desenvolvimento de um aplicativo mobile que ajuda usuários a identificar tipos de materiais
-                    recicláveis e localizar pontos de coleta próximos. O projeto inclui interface amigável e sistema de
-                    recompensas.</p>
+                <p>Projeto de análise de dados de saúde pública utilizando técnicas estatísticas e de visualização para identificar padrões, tendências e fatores de risco em populações específicas. Foco em doenças crônicas e epidemiológicas.</p>
 
                 <div class="action-buttons">
                     <button class="btn btn-primary"><i class="fas fa-heart"></i> Favoritar</button>
@@ -641,47 +634,42 @@
         <div class="details-content">
             <div class="detail-section">
                 <h2>Descrição do Projeto</h2>
-                <p>O aplicativo de Reciclagem Sustentável tem como objetivo facilitar o processo de reciclagem para a
-                    população em geral, incentivando práticas sustentáveis através da tecnologia. Com uma interface
-                    intuitiva, os usuários podem escanear materiais para identificar se são recicláveis, encontrar
-                    pontos de coleta próximos e acompanhar seu impacto ambiental.</p>
-                <p>O projeto é ideal para iniciantes em tecnologia que desejam aprender sobre desenvolvimento mobile,
-                    design de interface e trabalho com APIs de geolocalização.</p>
+                <p>Este projeto tem como objetivo analisar dados de saúde pública para identificar padrões e tendências em doenças crônicas e epidemiológicas. Utilizando técnicas de mineração de dados e visualização, os participantes irão trabalhar com conjuntos de dados reais do SUS e outros sistemas de saúde.</p>
+                <p>O projeto é ideal para estudantes de medicina, saúde pública, estatística e ciência de dados que desejam aplicar seus conhecimentos em problemas reais de saúde coletiva.</p>
             </div>
 
             <div class="detail-section">
                 <h2>Objetivos</h2>
                 <ul class="materials-list">
-                    <li>Conscientizar sobre a importância da reciclagem</li>
-                    <li>Facilitar o descarte correto de materiais recicláveis</li>
-                    <li>Criar uma rede de pontos de coleta colaborativos</li>
-                    <li>Implementar sistema de gamificação para incentivar usuários</li>
-                    <li>Fornecer dados sobre o impacto ambiental gerado pela reciclagem</li>
+                    <li>Identificar padrões de incidência de doenças em diferentes regiões</li>
+                    <li>Analisar fatores socioeconômicos relacionados à saúde pública</li>
+                    <li>Desenvolver visualizações claras e informativas para tomada de decisão</li>
+                    <li>Criar modelos preditivos para surtos de doenças sazonais</li>
+                    <li>Propor intervenções baseadas em evidências para políticas públicas</li>
                 </ul>
             </div>
 
             <div class="detail-section">
                 <h2>Materiais Utilizados</h2>
                 <ul class="materials-list">
-                    <li>React Native para desenvolvimento do app</li>
-                    <li>Firebase para backend e autenticação</li>
-                    <li>Google Maps API para geolocalização</li>
-                    <li>Figma para prototipagem da interface</li>
-                    <li>TensorFlow Lite para reconhecimento de imagens</li>
-                    <li>GitHub para controle de versão</li>
+                    <li>Python com bibliotecas de análise de dados (Pandas, NumPy, SciPy)</li>
+                    <li>R para análise estatística avançada</li>
+                    <li>Tableau/Power BI para visualização de dados</li>
+                    <li>Bancos de dados do DATASUS e IBGE</li>
+                    <li>Jupyter Notebooks para documentação e análise</li>
+                    <li>GitHub para controle de versão e colaboração</li>
                 </ul>
             </div>
 
             <div class="detail-section">
                 <h2>Etapas de Desenvolvimento</h2>
                 <ol class="steps-list">
-                    <li>Pesquisa e definição de requisitos (1 semana)</li>
-                    <li>Prototipação da interface do usuário (2 semanas)</li>
-                    <li>Desenvolvimento do frontend (3 semanas)</li>
-                    <li>Implementação do backend (2 semanas)</li>
-                    <li>Integração com APIs de geolocalização (1 semana)</li>
-                    <li>Testes com usuários (2 semanas)</li>
-                    <li>Publicação na Play Store e App Store (1 semana)</li>
+                    <li>Coleta e limpeza de dados de saúde pública (2 semanas)</li>
+                    <li>Análise exploratória e estatística descritiva (3 semanas)</li>
+                    <li>Desenvolvimento de visualizações e dashboards (3 semanas)</li>
+                    <li>Modelagem estatística e preditiva (4 semanas)</li>
+                    <li>Interpretação dos resultados e elaboração de relatório (2 semanas)</li>
+                    <li>Apresentação dos resultados para stakeholders (1 semana)</li>
                 </ol>
             </div>
         </div>
@@ -692,19 +680,19 @@
                 <div class="contact-info">
                     <div class="contact-item">
                         <i class="fas fa-university"></i>
-                        <span>Universidade Federal de Tecnologia</span>
+                        <span>Faculdade de Medicina</span>
                     </div>
                     <div class="contact-item">
                         <i class="fas fa-user"></i>
-                        <span>João Silva (Engenharia de Software)</span>
+                        <span>Dra. Maria Santos (Epidemiologia)</span>
                     </div>
                     <div class="contact-item">
                         <i class="fas fa-envelope"></i>
-                        <span>joao.silva@uft.edu.br</span>
+                        <span>maria.santos@facmed.edu.br</span>
                     </div>
                     <div class="contact-item">
                         <i class="fas fa-phone"></i>
-                        <span>(11) 99999-9999</span>
+                        <span>(11) 98888-7777</span>
                     </div>
                 </div>
 
@@ -716,7 +704,7 @@
                     <a href="#"><i class="fab fa-whatsapp"></i></a>
                     <a href="#"><i class="fab fa-instagram"></i></a>
                     <a href="#"><i class="fab fa-linkedin"></i></a>
-                    <a href="#"><i class="fab fa-github"></i></a>
+                    <a href="#"><i class="fab fa-researchgate"></i></a>
                 </div>
             </div>
 
@@ -725,19 +713,19 @@
                 <div class="contact-info">
                     <div class="contact-item">
                         <i class="fas fa-users"></i>
-                        <span>3-5 participantes</span>
+                        <span>4-6 participantes</span>
                     </div>
                     <div class="contact-item">
                         <i class="fas fa-calendar"></i>
-                        <span>Início: 01/09/2025</span>
+                        <span>Início: 15/08/2025</span>
                     </div>
                     <div class="contact-item">
                         <i class="fas fa-map-marker-alt"></i>
-                        <span>São Paulo, SP</span>
+                        <span>Belo Horizonte, MG</span>
                     </div>
                     <div class="contact-item">
                         <i class="fas fa-globe"></i>
-                        <span>Presencial e Remoto</span>
+                        <span>Remoto com encontros semanais</span>
                     </div>
                 </div>
             </div>
@@ -746,29 +734,28 @@
         <div class="topic-item">
             <h2>Fórum</h2>
             <div class="topic-header">
-                <a href="#" class="topic-title">Como participar do projeto?</a>
+                <a href="#" class="topic-title">Quais conhecimentos prévios são necessários?</a>
                 <div class="topic-meta">
                     <span class="topic-author">
-                        <i class="fas fa-user"></i> Pedro Almeida
+                        <i class="fas fa-user"></i> Carlos Mendes
                     </span>
                     <span class="topic-views">
-                        <i class="fas fa-eye"></i> 38
+                        <i class="fas fa-eye"></i> 42
                     </span>
                 </div>
             </div>
-            <p class="topic-excerpt">Gostaria de saber quais são os requisitos para participar deste projeto e como faço
-                a inscrição...</p>
+            <p class="topic-excerpt">Gostaria de saber quais conhecimentos em programação e estatística são necessários para participar deste projeto...</p>
             <div class="topic-footer">
                 <div class="topic-replies">
-                    <i class="fas fa-reply"></i> 2 respostas
+                    <i class="fas fa-reply"></i> 3 respostas
                 </div>
                 <div class="topic-date">
-                    Última resposta: 6 horas atrás
+                    Última resposta: 1 dia atrás
                 </div>
             </div>
-                            <button class="btn btn-primary" style="width: 100%; margin-top: 20px;" onclick="window.location.href='forum.html'">
-                    <i class="fas fa-comment"></i> Ver fórum completo
-                </button>
+            <button class="btn btn-primary" style="width: 100%; margin-top: 20px;" onclick="window.location.href='forum.html'">
+                <i class="fas fa-comment"></i> Ver fórum completo
+            </button>
         </div>
     </section>
 
@@ -780,18 +767,18 @@
             <!-- Project Card 1 -->
             <div class="project-card">
                 <div class="card-image"
-                    style="background-image: url('https://www.cref8.org.br/wp-content/uploads/2019/12/WhatsApp-Image-2019-12-02-at-09.09.33.jpeg');">
+                    style="background-image: url('https://medicinasa.com.br/wp-content/uploads/2020/03/telemedicina.jpg');">
                     <div class="card-difficulty beginner">Iniciante</div>
                 </div>
                 <div class="card-content">
-                    <h3>Game Educativo sobre Sustentabilidade</h3>
+                    <h3>Sistema de Telemedicina Comunitária</h3>
                     <div class="card-university">
                         <i class="fas fa-university"></i>
-                        <span>Universidade Estadual de Ciências</span>
+                        <span>Faculdade de Medicina</span>
                     </div>
                     <div class="card-meta">
-                        <div><i class="far fa-clock"></i> 1 mês</div>
-                        <div><i class="fas fa-tag"></i> Tecnologia</div>
+                        <div><i class="far fa-clock"></i> 2 meses</div>
+                        <div><i class="fas fa-tag"></i> Saúde</div>
                     </div>
                 </div>
             </div>
@@ -799,18 +786,18 @@
             <!-- Project Card 2 -->
             <div class="project-card">
                 <div class="card-image"
-                    style="background-image: url('https://zero.ong/wp-content/uploads/2024/02/Compostagem.jpg');">
-                    <div class="card-difficulty intermediate">Intermediário</div>
+                    style="background-image: url('https://img.freepik.com/vetores-premium/ilustracao-de-conceito-de-vigilancia-de-saude_70172-2272.jpg');">
+                    <div class="card-difficulty advanced">Avançado</div>
                 </div>
                 <div class="card-content">
-                    <h3>Sistema de Compostagem Doméstica</h3>
+                    <h3>Plataforma de Vigilância Epidemiológica</h3>
                     <div class="card-university">
                         <i class="fas fa-university"></i>
-                        <span>Faculdade de Engenharia Ambiental</span>
+                        <span>Escola de Saúde Pública</span>
                     </div>
                     <div class="card-meta">
-                        <div><i class="far fa-clock"></i> 3 meses</div>
-                        <div><i class="fas fa-tag"></i> Engenharia</div>
+                        <div><i class="far fa-clock"></i> 6 meses</div>
+                        <div><i class="fas fa-tag"></i> Saúde</div>
                     </div>
                 </div>
             </div>
@@ -818,23 +805,22 @@
             <!-- Project Card 3 -->
             <div class="project-card">
                 <div class="card-image"
-                    style="background-image: url('https://coolinary.com.br/wp-content/uploads/2019/05/novos-apps-promovem-consumo-consciente-e-evitam-o-desperdicio-de-comida-1.jpg.webp');">
-                    <div class="card-difficulty beginner">Iniciante</div>
+                    style="background-image: url('https://cdn.abcdoabc.com.br/inteligencia-artificial-medicina-1_cc6d3314.jpg');">
+                    <div class="card-difficulty intermediate">Intermediário</div>
                 </div>
                 <div class="card-content">
-                    <h3>App de Consumo Consciente</h3>
+                    <h3>IA para Diagnóstico de Imagens Médicas</h3>
                     <div class="card-university">
                         <i class="fas fa-university"></i>
-                        <span>Universidade Federal de Tecnologia</span>
+                        <span>Universidade de Tecnologia em Saúde</span>
                     </div>
                     <div class="card-meta">
-                        <div><i class="far fa-clock"></i> 2 meses</div>
-                        <div><i class="fas fa-tag"></i> Tecnologia</div>
+                        <div><i class="far fa-clock"></i> 4 meses</div>
+                        <div><i class="fas fa-tag"></i> Saúde/Tecnologia</div>
                     </div>
                 </div>
             </div>
         </div>
-
     </section>
 
     <!-- Footer -->

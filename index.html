@@ -492,7 +492,7 @@ a{
                     <li><a href="index.html">Projetos</a></li>
                     <li><a href="empresas.html" class="active">Empresas Parceiras</a></li>
                     <li><a href="quiz.html">Quiz</a></li>
-                    <li>
+                    <li id="login-li">
                         <button class="btn btn-outline" onclick="window.location.href='login.html'">Fazer Login</button>
                     </li>
                 </ul>
@@ -551,6 +551,7 @@ a{
             
             <!-- Project Card 2 -->
             <div class="project-card" data-area="Saúde">
+                <a href="projeto2.html">
                 <div class="card-image" style="background-image: url('https://www.drgbrasil.com.br/wp-content/uploads/2022/01/Bases-de-dados-em-saude-txt.jpg');">
                     <div class="card-difficulty intermediate">Intermediário</div>
                 </div>
@@ -565,6 +566,7 @@ a{
                         <div><i class="fas fa-tag"></i> Saúde</div>
                     </div>
                 </div>
+                </a>
             </div>
             
             <!-- Project Card 3 -->
@@ -587,7 +589,7 @@ a{
             
             <!-- Project Card 4 -->
             <div class="project-card" data-area="Artes">
-                <div class="card-image" style="background-image: url('https://images2.portalon.com.br/wp-content/uploads/2023/02/312348025_487489096749183_1919122357814158704_n-1675706505.jpg');">
+                <div class="card-image" style="background-image: url('https://buenosaires.gob.ar/sites/default/files/media/image/2018/12/05/1d473b1f7710b37024dfa426d2376f8414c21e77.jpg');">
                     <div class="card-difficulty beginner">Iniciante</div>
                 </div>
                 <div class="card-content">
@@ -862,10 +864,14 @@ a{
             e.preventDefault();
             projectForm.style.display = 'block';
             window.scrollTo({
-                top: projectForm.offsetTop - 20,
+                top: projectForm.offsetTop - 140,
                 behavior: 'smooth'
             });
         });
+
+        const loginLiHtml = document.getElementById("login-li")
+        let logado = window.localStorage.getItem("logged")
+        logado && (loginLiHtml.style.display = 'none')
         
         // Filter functionality
         filterButtons.forEach(button => {

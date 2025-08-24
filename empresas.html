@@ -449,7 +449,7 @@ a{
                     <li><a href="index.html">Projetos</a></li>
                     <li><a href="empresas.html" class="active">Empresas Parceiras</a></li>
                     <li><a href="quiz.html">Quiz</a></li>
-                    <li>
+                    <li id="login-li">
                         <button class="btn btn-outline" onclick="window.location.href='login.html'">Fazer Login</button>
                     </li>
                 </ul>
@@ -699,6 +699,11 @@ a{
             }
         });
 */
+
+        const loginLiHtml = document.getElementById("login-li")
+        let logado = window.localStorage.getItem("logged")
+        logado && (loginLiHtml.style.display = 'none')
+        
         // Filter functionality
         filterButtons.forEach(button => {
             button.addEventListener('click', () => {

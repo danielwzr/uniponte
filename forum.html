@@ -5,7 +5,7 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>UniPonte - Fórum do Projeto</title>
-        <link rel="shortcut icon" href="icon.png" type="image/x-icon">
+    <link rel="shortcut icon" href="icon.png" type="image/x-icon">
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
     <style>
         :root {
@@ -123,7 +123,6 @@
             border-radius: 12px;
             overflow: hidden;
             box-shadow: 0 5px 15px rgba(0, 0, 0, 0.08);
-            padding: 40px 20px;
         }
 
         .forum-stats {
@@ -578,7 +577,7 @@
                     <li><a href="empresas.html" class="active">Empresas Parceiras</a></li>
                     <!-- <li><a href="#" id="show-form-link">Cadastrar Projeto</a></li>  -->
                     <li><a href="quiz.html">Quiz</a></li>
-                    <li>
+                    <li id="login-li">
                         <button class="btn btn-outline" onclick="window.location.href='login.html'">Fazer Login</button>
                     </li>
                 </ul>
@@ -840,6 +839,10 @@
                     document.body.style.overflow = 'auto';
                 }
             });
+
+            const loginLiHtml = document.getElementById("login-li")
+            let logado = window.localStorage.getItem("logged")
+            logado && (loginLiHtml.style.display = 'none')
 
             // Cancelar
             cancelBtn.addEventListener('click', () => {
