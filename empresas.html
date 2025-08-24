@@ -1,0 +1,735 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>UniPonte - Empresas Parceiras</title>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+    <style>
+        :root {
+            --primary: #4A6BDF;
+            --secondary: #FF6B6B;
+            --accent: #4ECDC4;
+            --light: #F7F9FC;
+            --dark: #333333;
+            --success: #28a745;
+            --warning: #ffc107;
+            --danger: #dc3545;
+        }
+
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+        }
+
+        body {
+            background-color: #f5f7fa;
+            color: var(--dark);
+            line-height: 1.6;
+        }
+
+        .container {
+            width: 100%;
+            max-width: 1200px;
+            margin: 0 auto;
+            padding: 0 20px;
+        }
+
+        /* Header Styles */
+        header {
+            background: linear-gradient(135deg, var(--primary), #304fca);
+            color: white;
+            padding: 15px 0;
+            box-shadow: 0 4px 12px rgba(0, 0, 0, 0.1);
+            position: sticky;
+            top: 0;
+            z-index: 100;
+        }
+
+        .header-content {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+        }
+
+        .logo {
+            display: flex;
+            align-items: center;
+            gap: 10px;
+            font-size: 1.5rem;
+            font-weight: 700;
+        }
+
+        .logo i {
+            font-size: 1.8rem;
+        }
+
+        nav ul {
+            display: flex;
+            align-items: center;
+            list-style: none;
+            gap: 25px;
+        }
+
+        nav a {
+            color: white;
+            text-decoration: none;
+            font-weight: 500;
+            transition: opacity 0.3s;
+        }
+
+        a {
+            text-decoration: none;
+            color: inherit;
+        }
+
+        nav a:hover {
+            opacity: 0.8;
+        }
+
+        .auth-buttons {
+            display: flex;
+            gap: 10px;
+        }
+
+        .btn {
+            padding: 8px 16px;
+            border-radius: 50px;
+            border: none;
+            font-weight: 600;
+            cursor: pointer;
+            transition: all 0.3s;
+        }
+
+        .btn-outline {
+            background: transparent;
+            border: 2px solid white;
+            color: white;
+        }
+
+        .btn-primary {
+            background: var(--secondary);
+            color: white;
+        }
+
+        .btn:hover {
+            transform: translateY(-2px);
+            box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+        }
+
+        /* Hero Section */
+        .hero {
+            padding: 60px 0;
+            text-align: center;
+            background: linear-gradient(rgba(255, 255, 255, 0.9), rgba(255, 255, 255, 0.9)), url('data:image/svg+xml;utf8,<svg xmlns="http://www.w3.org/2000/svg" width="100" height="100" viewBox="0 0 100 100"><rect fill="%234A6BDF" opacity="0.2" width="10" height="10"/></svg>');
+            background-size: 20px 20px;
+        }
+
+        .hero h1 {
+            font-size: 2.5rem;
+            margin-bottom: 20px;
+            color: var(--primary);
+        }
+
+        .hero p {
+            font-size: 1.2rem;
+            max-width: 700px;
+            margin: 0 auto 30px;
+            color: var(--dark);
+        }
+
+        /* Filter Section */
+        .filters {
+            padding: 20px 0;
+            background: white;
+            box-shadow: 0 4px 12px rgba(0, 0, 0, 0.05);
+        }
+
+        .filter-title {
+            text-align: center;
+            margin-bottom: 20px;
+            font-size: 1.2rem;
+        }
+
+        .filter-options {
+            display: flex;
+            justify-content: center;
+            flex-wrap: wrap;
+            gap: 10px;
+        }
+
+        .filter-btn {
+            padding: 8px 20px;
+            border: 2px solid var(--primary);
+            border-radius: 50px;
+            background: white;
+            color: var(--primary);
+            font-weight: 600;
+            cursor: pointer;
+            transition: all 0.3s;
+        }
+
+        .filter-btn.active,
+        .filter-btn:hover {
+            background: var(--primary);
+            color: white;
+        }
+
+        /* Partners Grid */
+        .partners-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fill, minmax(300px, 1fr));
+            gap: 25px;
+            padding: 40px 0;
+        }
+
+        .partner-card {
+            background: white;
+            border-radius: 12px;
+            overflow: hidden;
+            box-shadow: 0 5px 15px rgba(0, 0, 0, 0.08);
+            transition: transform 0.3s, box-shadow 0.3s;
+            display: flex;
+            flex-direction: column;
+            height: 100%;
+        }
+
+        .partner-card:hover {
+            transform: translateY(-5px);
+            box-shadow: 0 10px 25px rgba(0, 0, 0, 0.15);
+        }
+
+        .card-image {
+            height: 180px;
+            background-size: cover;
+            background-position: center;
+            position: relative;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            padding: 20px;
+            background-color: #f7f9fc;
+        }
+
+        .card-image img {
+            max-height: 100px;
+            max-width: 80%;
+            object-fit: contain;
+        }
+
+        .card-sector {
+            position: absolute;
+            top: 15px;
+            right: 15px;
+            padding: 5px 12px;
+            border-radius: 20px;
+            font-size: 0.8rem;
+            font-weight: 600;
+            color: white;
+            background: var(--primary);
+        }
+
+        .card-content {
+            padding: 20px;
+            flex-grow: 1;
+            display: flex;
+            flex-direction: column;
+        }
+
+        .card-content h3 {
+            margin-bottom: 10px;
+            color: var(--dark);
+        }
+
+        .card-description {
+            color: #666;
+            margin-bottom: 15px;
+            flex-grow: 1;
+        }
+
+        .card-meta {
+            display: flex;
+            justify-content: space-between;
+            color: #777;
+            font-size: 0.9rem;
+            border-top: 1px solid #eee;
+            padding-top: 15px;
+            margin-top: auto;
+        }
+
+        .card-meta div {
+            display: flex;
+            align-items: center;
+            gap: 5px;
+        }
+
+        /* Partner Details Modal */
+        .modal {
+            display: none;
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            background: rgba(0, 0, 0, 0.7);
+            z-index: 1000;
+            overflow-y: auto;
+        }
+
+        .modal-content {
+            background: white;
+            margin: 50px auto;
+            border-radius: 12px;
+            max-width: 800px;
+            width: 90%;
+            animation: modalFade 0.3s;
+        }
+
+        @keyframes modalFade {
+            from {
+                opacity: 0;
+                transform: translateY(-30px);
+            }
+
+            to {
+                opacity: 1;
+                transform: translateY(0);
+            }
+        }
+
+        .modal-header {
+            padding: 20px;
+            border-bottom: 1px solid #eee;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+        }
+
+        .close-modal {
+            font-size: 1.5rem;
+            cursor: pointer;
+            color: #777;
+        }
+
+        .modal-body {
+            padding: 20px;
+        }
+
+        .partner-detail {
+            margin-bottom: 25px;
+        }
+
+        .partner-detail h3 {
+            margin-bottom: 10px;
+            color: var(--primary);
+        }
+
+        .benefits-list,
+        .projects-list {
+            padding-left: 20px;
+            margin-top: 10px;
+        }
+
+        .contact-info {
+            background: #f9f9f9;
+            padding: 15px;
+            border-radius: 8px;
+            margin-top: 20px;
+        }
+
+        /* Footer */
+        footer {
+            background: var(--dark);
+            color: white;
+            padding: 40px 0 20px;
+            margin-top: 60px;
+        }
+
+        .footer-content {
+            display: flex;
+            flex-wrap: wrap;
+            justify-content: space-between;
+            gap: 30px;
+        }
+
+        .footer-section {
+            flex: 1;
+            min-width: 250px;
+        }
+
+        .footer-section h3 {
+            margin-bottom: 20px;
+            font-size: 1.2rem;
+        }
+
+        .footer-links {
+            list-style: none;
+        }
+
+        .footer-links li {
+            margin-bottom: 10px;
+        }
+
+        .footer-links a {
+            color: #ddd;
+            text-decoration: none;
+        }
+
+        .footer-links a:hover {
+            color: white;
+        }
+
+        .social-links {
+            display: flex;
+            gap: 15px;
+            margin-top: 15px;
+        }
+
+        .social-links a {
+            color: white;
+            font-size: 1.5rem;
+        }
+
+        .copyright {
+            text-align: center;
+            margin-top: 40px;
+            padding-top: 20px;
+            border-top: 1px solid #444;
+        }
+
+        /* Responsive Design */
+        @media (max-width: 768px) {
+            .header-content {
+                flex-direction: column;
+                gap: 15px;
+            }
+
+            nav ul {
+                gap: 15px;
+                flex-wrap: wrap;
+                justify-content: center;
+            }
+
+            .hero h1 {
+                font-size: 2rem;
+            }
+
+            .hero p {
+                font-size: 1rem;
+            }
+
+            .modal-content {
+                width: 95%;
+                margin: 20px auto;
+            }
+        }
+        
+a{
+    text-decoration: none;
+    color: inherit;
+}
+    </style>
+</head>
+
+<body>
+    <!-- Header -->
+    <header>
+        <div class="container header-content">
+          <a href="index.html">    <div class="logo">
+                <i class="fas fa-graduation-cap"></i>
+                <span>UniPonte</span>
+            </div>
+</a>
+            <nav>
+                <ul>
+                    <li><a href="index.html">Projetos</a></li>
+                    <li><a href="empresas.html" class="active">Empresas Parceiras</a></li>
+                    <li><a href="quiz.html">Quiz</a></li>
+                    <li>
+                        <button class="btn btn-outline" onclick="window.location.href='login.html'">Fazer Login</button>
+                    </li>
+                </ul>
+            </nav>
+        </div>
+    </header>
+
+    <!-- Hero Section -->
+    <section class="hero">
+        <div class="container">
+            <h1>Empresas Parceiras</h1>
+            <p>Conheça as empresas que estão apoiando nossa iniciativa e oferecendo oportunidades para estudantes</p>
+            <button onclick="window.location.href='login.html'" class="btn btn-primary" id="show-form-link">Seja uma empresa parceira</button>
+        </div>
+    </section>
+
+    <!-- Filter Section -->
+    <section class="filters">
+        <div class="container">
+            <h2 class="filter-title">Filtrar por setor</h2>
+            <div class="filter-options">
+                <button class="filter-btn active" data-sector="all">Todos</button>
+                <button class="filter-btn" data-sector="Tecnologia">Tecnologia</button>
+                <button class="filter-btn" data-sector="Saúde">Saúde</button>
+                <button class="filter-btn" data-sector="Construção">Construção</button>
+                <button class="filter-btn" data-sector="Financeiro">Financeiro</button>
+                <button class="filter-btn" data-sector="Energia">Energia</button>
+                <button class="filter-btn" data-sector="Alimentação">Alimentação</button>
+            </div>
+        </div>
+    </section>
+
+    <!-- Partners Grid -->
+    <section class="container">
+        <div class="partners-grid" id="partners-container">
+            <!-- Partner Card 1 -->
+            <div class="partner-card" data-sector="Alimentação">
+                <div class="card-image">
+                    <span class="card-sector">Alimentação</span>
+                    <img src="https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcS9lbHtyZ198jPiz_9G2-A_GPMTT_51Gpz3gw&s" alt="TechSolutions">
+                </div>
+                <div class="card-content">
+                    <h3>Casa de Carnes Alvorada</h3>
+                    <p class="card-description">Foco na entrega produtos alimentícios com qualidade.</p>
+                    <div class="card-meta">
+                        <div><i class="fas fa-map-marker-alt"></i> Patos de Minas, MG</div>
+                        <div><i class="fas fa-calendar-alt"></i> Parceira desde 2025</div>
+                    </div>
+                </div>
+            </div>
+
+            <!-- Partner Card 2 -->
+            <div class="partner-card" data-sector="Construção">
+                <div class="card-image">
+                    <span class="card-sector">Construção</span>
+                    <img src="https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcQGtkyQRRrd9z8UBxfGc5-5m9EZFnMGVcaz4A&s" alt="HealthCare+">
+                </div>
+                <div class="card-content">
+                    <h3>Lima Materiais de Construção</h3>
+                    <p class="card-description">Referência em materiais elétricos, hidráulicos e de construção no geral.
+                    </p>
+                    <div class="card-meta">
+                        <div><i class="fas fa-map-marker-alt"></i> Patos de Minas, MG</div>
+                        <div><i class="fas fa-calendar-alt"></i> Parceira desde 2025</div>
+                    </div>
+                </div>
+            </div>
+
+            <!-- Partner Card 3 
+            <div class="partner-card" data-sector="Educação">
+                <div class="card-image">
+                    <span class="card-sector">Educação</span>
+                    <img src="https://via.placeholder.com/250x100/FF6B6B/FFFFFF?text=EducaBrasil" alt="EducaBrasil">
+                </div>
+                <div class="card-content">
+                    <h3>EducaBrasil</h3>
+                    <p class="card-description">Plataforma de educação digital com foco em capacitação profissional.</p>
+                    <div class="card-meta">
+                        <div><i class="fas fa-map-marker-alt"></i> Porto Alegre, RS</div>
+                        <div><i class="fas fa-calendar-alt"></i> Parceira desde 2024</div>
+                    </div>
+                </div>
+            </div>
+
+            Partner Card 4 
+            <div class="partner-card" data-sector="Financeiro">
+                <div class="card-image">
+                    <span class="card-sector">Financeiro</span>
+                    <img src="https://via.placeholder.com/250x100/28a745/FFFFFF?text=FinanPrime" alt="FinanPrime">
+                </div>
+                <div class="card-content">
+                    <h3>FinanPrime</h3>
+                    <p class="card-description">Instituição financeira com soluções inovadoras para investimentos.</p>
+                    <div class="card-meta">
+                        <div><i class="fas fa-map-marker-alt"></i> Rio de Janeiro, RJ</div>
+                        <div><i class="fas fa-calendar-alt"></i> Parceira desde 2023</div>
+                    </div>
+                </div>
+            </div>
+
+            <div class="partner-card" data-sector="Energia">
+                <div class="card-image">
+                    <span class="card-sector">Energia</span>
+                    <img src="https://via.placeholder.com/250x100/ffc107/333333?text=EcoEnergy" alt="EcoEnergy">
+                </div>
+                <div class="card-content">
+                    <h3>EcoEnergy</h3>
+                    <p class="card-description">Empresa de energia renovável com foco em soluções sustentáveis.</p>
+                    <div class="card-meta">
+                        <div><i class="fas fa-map-marker-alt"></i> Brasília, DF</div>
+                        <div><i class="fas fa-calendar-alt"></i> Parceira desde 2022</div>
+                    </div>
+                </div>
+            </div>
+
+            <div class="partner-card" data-sector="Consultoria">
+                <div class="card-image">
+                    <span class="card-sector">Consultoria</span>
+                    <img src="https://via.placeholder.com/250x100/dc3545/FFFFFF?text=ConsultPlus" alt="ConsultPlus">
+                </div>
+                <div class="card-content">
+                    <h3>ConsultPlus</h3>
+                    <p class="card-description">Consultoria empresarial especializada em transformação digital.</p>
+                    <div class="card-meta">
+                        <div><i class="fas fa-map-marker-alt"></i> Curitiba, PR</div>
+                        <div><i class="fas fa-calendar-alt"></i> Parceira desde 2024</div>
+                    </div>
+                </div>
+            </div>  -->
+        </div>
+    </section>
+
+    <!-- Partner Details Modal -->
+    <div class="modal" id="partner-modal">
+        <div class="modal-content">
+            <div class="modal-header">
+                <h2>TechSolutions</h2>
+                <span class="close-modal">&times;</span>
+            </div>
+            <div class="modal-body">
+                <div class="partner-detail">
+                    <h3>Sobre a Empresa</h3>
+                    <p>A TechSolutions é uma empresa líder no mercado de tecnologia, especializada no desenvolvimento de
+                        software personalizado e soluções de transformação digital para empresas de todos os portes. Com
+                        mais de 10 anos de experiência, temos um portfólio diversificado de clientes em diversos
+                        segmentos.</p>
+                </div>
+
+                <div class="partner-detail">
+                    <h3>Benefícios para Estudantes</h3>
+                    <ul class="benefits-list">
+                        <li>Programa de estágio remunerado com possibilidade de efetivação</li>
+                        <li>Mentoria com profissionais seniores da área de tecnologia</li>
+                        <li>Acesso a cursos e certificações patrocinadas pela empresa</li>
+                        <li>Participação em projetos reais desde o primeiro dia</li>
+                        <li>Bolsa auxílio para projetos de pesquisa relevantes</li>
+                    </ul>
+                </div>
+
+                <div class="partner-detail">
+                    <h3>Projetos em Andamento</h3>
+                    <ul class="projects-list">
+                        <li>Desenvolvimento de aplicativo para gestão educacional</li>
+                        <li>Plataforma de recrutamento e seleção especializada em TI</li>
+                        <li>Sistema de análise de dados para otimização de processos</li>
+                        <li>Projeto de acessibilidade digital para pessoas com deficiência</li>
+                    </ul>
+                </div>
+
+                <div class="contact-info">
+                    <h3>Contato</h3>
+                    <p><strong>Site:</strong> www.techsolutions.com.br</p>
+                    <p><strong>Email:</strong> parcerias@techsolutions.com.br</p>
+                    <p><strong>Telefone:</strong> (11) 3000-4000</p>
+                    <p><strong>Endereço:</strong> Av. Paulista, 1000 - São Paulo, SP</p>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <!-- Footer -->
+    <footer>
+        <div class="container">
+            <div class="footer-content">
+                <div class="footer-section">
+                    <h3>UniPonte</h3>
+                    <p>Conectando alunos do ensino médio com universitários através de projetos acadêmicos práticos.</p>
+                    <div class="social-links">
+                        <a href="#"><i class="fab fa-facebook"></i></a>
+                        <a href="#"><i class="fab fa-instagram"></i></a>
+                        <a href="#"><i class="fab fa-twitter"></i></a>
+                        <a href="#"><i class="fab fa-linkedin"></i></a>
+                    </div>
+                </div>
+
+                <div class="footer-section">
+                    <h3>Links Rápidos</h3>
+                    <ul class="footer-links">
+                        <li><a href="index.html">Projetos</a></li>
+                        <li><a href="empresas.html">Empresas Parceiras</a></li>
+                        <li><a href="login.html">Fazer Login</a></li>
+                        <li><a href="quiz.html">Quiz</a></li>
+                    </ul>
+                </div>
+
+                <div class="footer-section">
+                    <h3>Contato</h3>
+                    <p><i class="fas fa-map-marker-alt"></i> R. Maj. Gote, 808</p>
+                    <p><i class="fas fa-phone"></i> (34) 9 9774-3681</p>
+                    <p><i class="fas fa-envelope"></i> contato@uniponte.com</p>
+                </div>
+            </div>
+
+            <div class="copyright">
+                <p>&copy; 2025 UniPonte - Todos os direitos reservados</p>
+            </div>
+        </div>
+    </footer>
+
+    <script>
+        // Modal functionality
+        const partnerCards = document.querySelectorAll('.partner-card');
+        const modal = document.getElementById('partner-modal');
+        const closeModal = document.querySelector('.close-modal');
+        const filterButtons = document.querySelectorAll('.filter-btn');
+        const partnersContainer = document.getElementById('partners-container');
+
+        // Open modal when partner card is clicked
+  /*      partnerCards.forEach(card => {
+            card.addEventListener('click', () => {
+                modal.style.display = 'block';
+                document.body.style.overflow = 'hidden';
+            });
+        });
+
+        // Close modal
+        closeModal.addEventListener('click', () => {
+            modal.style.display = 'none';
+            document.body.style.overflow = 'auto';
+        });
+
+        // Close modal when clicking outside
+        window.addEventListener('click', (e) => {
+            if (e.target === modal) {
+                modal.style.display = 'none';
+                document.body.style.overflow = 'auto';
+            }
+        });
+*/
+        // Filter functionality
+        filterButtons.forEach(button => {
+            button.addEventListener('click', () => {
+                // Remove active class from all buttons
+                filterButtons.forEach(btn => btn.classList.remove('active'));
+
+                // Add active class to clicked button
+                button.classList.add('active');
+
+                // Get the sector to filter
+                const sector = button.getAttribute('data-sector');
+
+                // Filter partners
+                filterPartners(sector);
+            });
+        });
+
+        // Filter partners by sector
+        function filterPartners(sector) {
+            const partners = document.querySelectorAll('.partner-card');
+
+            partners.forEach(partner => {
+                const partnerSector = partner.getAttribute('data-sector');
+
+                if (sector === 'all' || partnerSector === sector) {
+                    partner.style.display = 'block';
+                } else {
+                    partner.style.display = 'none';
+                }
+            });
+        }
+    </script>
+</body>
+
+</html>

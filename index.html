@@ -470,31 +470,32 @@
                 margin: 20px auto;
             }
         }
+        
+a{
+    text-decoration: none;
+    color: inherit;
+}
     </style>
 </head>
 <body>
     <!-- Header -->
     <header>
         <div class="container header-content">
-            <div class="logo">
+           <a href="index.html">   <div class="logo">
                 <i class="fas fa-graduation-cap"></i>
                 <span>UniPonte</span>
             </div>
-            
+            </a>
             <nav>
                 <ul>
-                    <li><a href="index.html" class="active">Início</a></li>
-                  <!-- <li><a href="#" id="show-form-link">Cadastrar Projeto</a></li>  --> 
+                    <li><a href="index.html">Projetos</a></li>
+                    <li><a href="empresas.html" class="active">Empresas Parceiras</a></li>
                     <li><a href="quiz.html">Quiz</a></li>
                     <li>
                         <button class="btn btn-outline" onclick="window.location.href='login.html'">Fazer Login</button>
                     </li>
                 </ul>
             </nav>
-            
-            <div class="auth-buttons">
-               <!-- <button class="btn btn-primary" onclick="window.location.href='login.html'">Cadastrar</button>-->
-            </div>
         </div>
     </header>
     
@@ -504,7 +505,6 @@
             <h1>Conectamos alunos do ensino médio com universitários</h1>
             <p>Participe de projetos acadêmicos práticos e ganhe experiência com a orientação de universitários</p>
             <button class="btn btn-primary" id="show-form-link">Cadastrar Projeto</button>
-            <a href="#" ></a>
         </div>
     </section>
     
@@ -513,42 +513,43 @@
         <div class="container">
             <h2 class="filter-title">Filtrar por área de interesse</h2>
             <div class="filter-options">
-                <button class="filter-btn active">Todas</button>
-                <button class="filter-btn">Tecnologia</button>
-                <button class="filter-btn">Saúde</button>
-                <button class="filter-btn">Ciências</button>
-                <button class="filter-btn">Humanas</button>
-                <button class="filter-btn">Artes</button>
-                <button class="filter-btn">Negócios</button>
-                <button class="filter-btn">Engenharia</button>
+                <button class="filter-btn active" data-area="all">Todas</button>
+                <button class="filter-btn" data-area="Tecnologia">Tecnologia</button>
+                <button class="filter-btn" data-area="Saúde">Saúde</button>
+                <button class="filter-btn" data-area="Ciências">Ciências</button>
+                <button class="filter-btn" data-area="Humanas">Humanas</button>
+                <button class="filter-btn" data-area="Artes">Artes</button>
+                <button class="filter-btn" data-area="Negócios">Negócios</button>
+                <button class="filter-btn" data-area="Engenharia">Engenharia</button>
             </div>
         </div>
     </section>
     
     <!-- Projects Grid -->
     <section class="container">
-        <div class="projects-grid">
+        <div class="projects-grid" id="projects-container">
             <!-- Project Card 1 -->
-             <a href="projeto.html">
-            <div class="project-card">
-                <div class="card-image" style="background-image: url('https://blog.brkambiental.com.br/wp-content/uploads/2019/07/original-1a6b1136e3124ca180ad5edd12ef61f3.jpg');">
-                    <div class="card-difficulty beginner">Iniciante</div>
-                </div>
-                <div class="card-content">
-                    <h3>App de Reciclagem Sustentável</h3>
-                    <div class="card-university">
-                        <i class="fas fa-university"></i>
-                        <span>Universidade Federal de Tecnologia</span>
+            <div class="project-card" data-area="Tecnologia">
+                <a href="projeto.html">
+                    <div class="card-image" style="background-image: url('https://blog.brkambiental.com.br/wp-content/uploads/2019/07/original-1a6b1136e3124ca180ad5edd12ef61f3.jpg');">
+                        <div class="card-difficulty beginner">Iniciante</div>
                     </div>
-                    <div class="card-meta">
-                        <div><i class="far fa-clock"></i> 2 meses</div>
-                        <div><i class="fas fa-tag"></i> Tecnologia</div>
+                    <div class="card-content">
+                        <h3>App de Reciclagem Sustentável</h3>
+                        <div class="card-university">
+                            <i class="fas fa-university"></i>
+                            <span>Universidade Federal de Tecnologia</span>
+                        </div>
+                        <div class="card-meta">
+                            <div><i class="far fa-clock"></i> 2 meses</div>
+                            <div><i class="fas fa-tag"></i> Tecnologia</div>
+                        </div>
                     </div>
-                </div>
+                </a>
             </div>
-            </a>
+            
             <!-- Project Card 2 -->
-            <div class="project-card">
+            <div class="project-card" data-area="Saúde">
                 <div class="card-image" style="background-image: url('https://www.drgbrasil.com.br/wp-content/uploads/2022/01/Bases-de-dados-em-saude-txt.jpg');">
                     <div class="card-difficulty intermediate">Intermediário</div>
                 </div>
@@ -566,7 +567,7 @@
             </div>
             
             <!-- Project Card 3 -->
-            <div class="project-card">
+            <div class="project-card" data-area="Engenharia">
                 <div class="card-image" style="background-image: url('https://www.twgbrasil.com.br/wp-content/uploads/2023/08/arduino2.jpg');">
                     <div class="card-difficulty advanced">Avançado</div>
                 </div>
@@ -584,8 +585,8 @@
             </div>
             
             <!-- Project Card 4 -->
-            <div class="project-card">
-                <div class="card-image" style="background-image: url('https://images2.portalon.com.br/wp-content/uploads/2023/02/312348025_487489096749183_1919122457814158704_n-1675706505.jpg');">
+            <div class="project-card" data-area="Artes">
+                <div class="card-image" style="background-image: url('https://images2.portalon.com.br/wp-content/uploads/2023/02/312348025_487489096749183_1919122357814158704_n-1675706505.jpg');">
                     <div class="card-difficulty beginner">Iniciante</div>
                 </div>
                 <div class="card-content">
@@ -602,7 +603,7 @@
             </div>
             
             <!-- Project Card 5 -->
-            <div class="project-card">
+            <div class="project-card" data-area="Negócios">
                 <div class="card-image" style="background-image: url('https://institutolegado.org/wp/wp-content/uploads/2019/01/achievement-3385068_1920.jpg');">
                     <div class="card-difficulty intermediate">Intermediário</div>
                 </div>
@@ -620,7 +621,7 @@
             </div>
             
             <!-- Project Card 6 -->
-            <div class="project-card">
+            <div class="project-card" data-area="Ciências">
                 <div class="card-image" style="background-image: url('https://static.todamateria.com.br/upload/am/az/amazonia-0-cke.jpg');">
                     <div class="card-difficulty beginner">Iniciante</div>
                 </div>
@@ -801,9 +802,10 @@
                 <div class="footer-section">
                     <h3>Links Rápidos</h3>
                     <ul class="footer-links">
-                        <li><a href="#">Início</a></li>
-                        <li><a href="#">Projetos</a></li>
-                        <li><a href="#">Cadastrar Projeto</a></li>
+                    <li><a href="index.html">Projetos</a></li>
+                        <li><a href="empresas.html">Empresas Parceiras</a></li>
+                        <li><a href="login.html">Fazer Login</a></li>
+                        <li><a href="quiz.html">Quiz</a></li>
                     </ul>
                 </div>
                 
@@ -830,8 +832,9 @@
         const projectForm = document.getElementById('project-form');
         const addProjectForm = document.getElementById('add-project-form');
         const filterButtons = document.querySelectorAll('.filter-btn');
+        const projectsContainer = document.getElementById('projects-container');
         
-        // Open modal when project card is clicked
+      /*  // Open modal when project card is clicked
         projectCards.forEach(card => {
             card.addEventListener('click', () => {
                 modal.style.display = 'block';
@@ -852,7 +855,7 @@
                 document.body.style.overflow = 'auto';
             }
         });
-        
+        */
         // Show project form
         showFormLink.addEventListener('click', (e) => {
             e.preventDefault();
@@ -872,10 +875,28 @@
                 // Add active class to clicked button
                 button.classList.add('active');
                 
-                // Here would be the actual filtering logic
-                // For this example, we're just simulating
+                // Get the area to filter
+                const area = button.getAttribute('data-area');
+                
+                // Filter projects
+                filterProjects(area);
             });
         });
+        
+        // Filter projects by area
+        function filterProjects(area) {
+            const projects = document.querySelectorAll('.project-card');
+            
+            projects.forEach(project => {
+                const projectArea = project.getAttribute('data-area');
+                
+                if (area === 'all' || projectArea === area) {
+                    project.style.display = 'block';
+                } else {
+                    project.style.display = 'none';
+                }
+            });
+        }
         
         // Form submission
         addProjectForm.addEventListener('submit', (e) => {

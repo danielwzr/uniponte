@@ -1,5 +1,6 @@
 <!DOCTYPE html>
 <html lang="pt-BR">
+
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
@@ -16,14 +17,19 @@
             --warning: #ffc107;
             --danger: #dc3545;
         }
-        
+
+a{
+    text-decoration: none;
+    color: inherit;
+}
+
         * {
             margin: 0;
             padding: 0;
             box-sizing: border-box;
             font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
         }
-        
+
         body {
             background: linear-gradient(135deg, #f5f7fa 0%, #c3cfe2 100%);
             color: var(--dark);
@@ -32,7 +38,7 @@
             display: flex;
             flex-direction: column;
         }
-        
+
         /* Header Styles */
         header {
             background: linear-gradient(135deg, var(--primary), #304fca);
@@ -40,7 +46,7 @@
             padding: 15px 0;
             box-shadow: 0 4px 12px rgba(0, 0, 0, 0.1);
         }
-        
+
         .header-content {
             display: flex;
             justify-content: space-between;
@@ -49,7 +55,7 @@
             margin: 0 auto;
             padding: 0 20px;
         }
-        
+
         .logo {
             display: flex;
             align-items: center;
@@ -57,28 +63,28 @@
             font-size: 1.5rem;
             font-weight: 700;
         }
-        
+
         .logo i {
             font-size: 1.8rem;
         }
-        
+
         nav ul {
             display: flex;
             list-style: none;
             gap: 25px;
         }
-        
+
         nav a {
             color: white;
             text-decoration: none;
             font-weight: 500;
             transition: opacity 0.3s;
         }
-        
+
         nav a:hover {
             opacity: 0.8;
         }
-        
+
         /* Auth Container */
         .auth-container {
             display: flex;
@@ -87,7 +93,7 @@
             justify-content: center;
             padding: 40px 20px;
         }
-        
+
         .auth-tabs {
             display: flex;
             width: 100%;
@@ -98,12 +104,12 @@
             box-shadow: 0 10px 30px rgba(0, 0, 0, 0.1);
             flex-direction: column;
         }
-        
+
         .tabs-header {
             display: flex;
             border-bottom: 1px solid #eee;
         }
-        
+
         .tab {
             flex: 1;
             padding: 20px;
@@ -113,48 +119,91 @@
             font-weight: 600;
             color: #777;
         }
-        
+
         .tab.active {
             color: var(--primary);
             border-bottom: 3px solid var(--primary);
         }
-        
+
         .tab-content {
             padding: 30px;
         }
-        
+
         .auth-form {
             display: none;
         }
-        
+
         .auth-form.active {
             display: block;
             animation: fadeIn 0.5s;
         }
-        
+
         @keyframes fadeIn {
-            from { opacity: 0; transform: translateY(10px); }
-            to { opacity: 1; transform: translateY(0); }
+            from {
+                opacity: 0;
+                transform: translateY(10px);
+            }
+
+            to {
+                opacity: 1;
+                transform: translateY(0);
+            }
         }
-        
+
         .form-title {
             text-align: center;
-            margin-bottom: 25px;
+            margin-bottom: 15px;
             color: var(--dark);
             font-size: 1.5rem;
         }
-        
+
+        .user-type-toggle {
+            display: flex;
+            background: #f5f7fa;
+            border-radius: 50px;
+            padding: 4px;
+            margin-bottom: 25px;
+            position: relative;
+        }
+
+        .user-type-btn {
+            flex: 1;
+            padding: 8px 16px;
+            text-align: center;
+            cursor: pointer;
+            border-radius: 50px;
+            font-weight: 600;
+            z-index: 1;
+            transition: color 0.3s;
+        }
+
+        .user-type-slider {
+            position: absolute;
+            top: 4px;
+            left: 4px;
+            width: calc(50% - 4px);
+            height: calc(100% - 8px);
+            background: white;
+            border-radius: 50px;
+            box-shadow: 0 2px 8px rgba(0, 0, 0, 0.1);
+            transition: transform 0.3s;
+        }
+
+        .user-type-btn.active {
+            color: var(--primary);
+        }
+
         .form-group {
             margin-bottom: 20px;
         }
-        
+
         .form-group label {
             display: block;
             margin-bottom: 8px;
             font-weight: 600;
             color: #555;
         }
-        
+
         .form-control {
             width: 100%;
             padding: 14px 16px;
@@ -163,17 +212,17 @@
             font-size: 1rem;
             transition: all 0.3s;
         }
-        
+
         .form-control:focus {
             border-color: var(--primary);
             outline: none;
             box-shadow: 0 0 0 3px rgba(74, 107, 223, 0.2);
         }
-        
+
         .password-toggle {
             position: relative;
         }
-        
+
         .toggle-password {
             position: absolute;
             right: 15px;
@@ -181,7 +230,7 @@
             color: #777;
             cursor: pointer;
         }
-        
+
         .form-options {
             display: flex;
             justify-content: space-between;
@@ -189,23 +238,23 @@
             margin-bottom: 20px;
             font-size: 0.9rem;
         }
-        
+
         .remember-me {
             display: flex;
             align-items: center;
             gap: 8px;
         }
-        
+
         .forgot-password {
             color: var(--primary);
             text-decoration: none;
             font-weight: 500;
         }
-        
+
         .forgot-password:hover {
             text-decoration: underline;
         }
-        
+
         .btn {
             padding: 14px 20px;
             border-radius: 8px;
@@ -217,25 +266,25 @@
             width: 100%;
             font-size: 1rem;
         }
-        
+
         .btn-primary {
             background: var(--primary);
             color: white;
         }
-        
+
         .btn-primary:hover {
             background: #3a5bc9;
             transform: translateY(-2px);
             box-shadow: 0 5px 15px rgba(0, 0, 0, 0.1);
         }
-        
+
         .divider {
             display: flex;
             align-items: center;
             margin: 25px 0;
             color: #777;
         }
-        
+
         .divider::before,
         .divider::after {
             content: "";
@@ -243,18 +292,18 @@
             height: 1px;
             background: #ddd;
         }
-        
+
         .divider span {
             padding: 0 15px;
             font-size: 0.9rem;
         }
-        
+
         .social-login {
             display: flex;
             gap: 15px;
             margin-bottom: 25px;
         }
-        
+
         .social-btn {
             flex: 1;
             padding: 12px;
@@ -267,37 +316,47 @@
             align-items: center;
             justify-content: center;
         }
-        
+
         .social-btn:hover {
             transform: translateY(-2px);
             box-shadow: 0 5px 15px rgba(0, 0, 0, 0.1);
         }
-        
+
         .social-btn.google {
             color: #DB4437;
         }
-        
+
         .social-btn.facebook {
             color: #4267B2;
         }
-        
+
         .auth-footer {
             text-align: center;
             margin-top: 20px;
             font-size: 0.9rem;
             color: #777;
         }
-        
+
         .auth-footer a {
             color: var(--primary);
             text-decoration: none;
             font-weight: 600;
         }
-        
+
         .auth-footer a:hover {
             text-decoration: underline;
         }
-        
+
+        /* Empresa-specific fields */
+        .empresa-fields {
+            display: none;
+        }
+
+        .empresa-fields.active {
+            display: block;
+            animation: fadeIn 0.3s;
+        }
+
         /* Footer */
         footer {
             background: var(--dark);
@@ -305,7 +364,7 @@
             padding: 40px 0 20px;
             margin-top: auto;
         }
-        
+
         .footer-content {
             display: flex;
             flex-wrap: wrap;
@@ -315,45 +374,45 @@
             margin: 0 auto;
             padding: 0 20px;
         }
-        
+
         .footer-section {
             flex: 1;
             min-width: 250px;
         }
-        
+
         .footer-section h3 {
             margin-bottom: 20px;
             font-size: 1.2rem;
         }
-        
+
         .footer-links {
             list-style: none;
         }
-        
+
         .footer-links li {
             margin-bottom: 10px;
         }
-        
+
         .footer-links a {
             color: #ddd;
             text-decoration: none;
         }
-        
+
         .footer-links a:hover {
             color: white;
         }
-        
+
         .social-links {
             display: flex;
             gap: 15px;
             margin-top: 15px;
         }
-        
+
         .social-links a {
             color: white;
             font-size: 1.5rem;
         }
-        
+
         .copyright {
             text-align: center;
             margin-top: 40px;
@@ -363,24 +422,24 @@
             margin: 40px auto 0;
             padding: 20px 20px 0;
         }
-        
+
         /* Responsive Design */
         @media (max-width: 768px) {
             .header-content {
                 flex-direction: column;
                 gap: 15px;
             }
-            
+
             nav ul {
                 gap: 15px;
                 flex-wrap: wrap;
                 justify-content: center;
             }
-            
+
             .social-login {
                 flex-direction: column;
             }
-            
+
             .form-options {
                 flex-direction: column;
                 align-items: flex-start;
@@ -389,25 +448,28 @@
         }
     </style>
 </head>
+
 <body>
     <!-- Header -->
     <header>
         <div class="header-content">
+          <a href="index.html">  
             <div class="logo">
                 <i class="fas fa-graduation-cap"></i>
                 <span>UniPonte</span>
             </div>
-            
+</a>
             <nav>
                 <ul>
-                    <li><a href="index.html">Início</a></li>
+                    <li><a href="index.html">Projetos</a></li>
+                    <li><a href="empresas.html">Empresas Parceiras</a></li>
                     <li><a href="quiz.html">Quiz</a></li>
                 </ul>
             </nav>
-            
+
         </div>
     </header>
-    
+
     <!-- Auth Container -->
     <div class="auth-container">
         <div class="auth-tabs">
@@ -415,25 +477,33 @@
                 <div class="tab active" id="login-tab">Entrar</div>
                 <div class="tab" id="register-tab">Cadastrar</div>
             </div>
-            
+
             <div class="tab-content">
                 <!-- Login Form -->
                 <form class="auth-form active" id="login-form">
                     <h2 class="form-title">Bem-vindo de volta!</h2>
                     
+                    <!-- Toggle Aluno/Empresa -->
+                    <div class="user-type-toggle" id="login-user-type">
+                        <div class="user-type-slider"></div>
+                        <div class="user-type-btn active" data-type="aluno">Aluno</div>
+                        <div class="user-type-btn" data-type="empresa">Empresa</div>
+                    </div>
+
                     <div class="form-group">
                         <label for="login-email">E-mail</label>
                         <input type="email" id="login-email" class="form-control" placeholder="seu@email.com" required>
                     </div>
-                    
+
                     <div class="form-group password-toggle">
                         <label for="login-password">Senha</label>
-                        <input type="password" id="login-password" class="form-control" placeholder="Sua senha" required>
+                        <input type="password" id="login-password" class="form-control" placeholder="Sua senha"
+                            required>
                         <span class="toggle-password" id="toggle-login-password">
                             <i class="far fa-eye"></i>
                         </span>
                     </div>
-                    
+
                     <div class="form-options">
                         <label class="remember-me">
                             <input type="checkbox" id="remember-me">
@@ -441,13 +511,13 @@
                         </label>
                         <a href="#" class="forgot-password">Esqueci minha senha</a>
                     </div>
-                    
+
                     <button type="submit" class="btn btn-primary">Entrar</button>
-                    
+
                     <div class="divider">
                         <span>Ou entre com</span>
                     </div>
-                    
+
                     <div class="social-login">
                         <button type="button" class="social-btn google">
                             <i class="fab fa-google"></i>
@@ -456,43 +526,75 @@
                             <i class="fab fa-facebook-f"></i>
                         </button>
                     </div>
-                    
+
                     <div class="auth-footer">
                         Não tem uma conta? <a href="#" id="go-to-register">Cadastre-se</a>
                     </div>
                 </form>
-                
+
                 <!-- Register Form -->
                 <form class="auth-form" id="register-form">
                     <h2 class="form-title">Crie sua conta</h2>
                     
-                    <div class="form-group">
-                        <label for="register-name">Nome completo</label>
-                        <input type="text" id="register-name" class="form-control" placeholder="Seu nome completo" required>
+                    <!-- Toggle Aluno/Empresa -->
+                    <div class="user-type-toggle" id="register-user-type">
+                        <div class="user-type-slider"></div>
+                        <div class="user-type-btn active" data-type="aluno">Aluno</div>
+                        <div class="user-type-btn" data-type="empresa">Empresa</div>
                     </div>
-                    
+
+                    <div class="form-group" id="nome-aluno">
+                        <label for="register-name">Nome completo</label>
+                        <input type="text" id="register-name" class="form-control" placeholder="Seu nome completo"
+                            required>
+                    </div>
+
+                     <div class="form-group" id="cpf-aluno">
+                        <label for="register-name">CPF</label>
+                        <input type="text" id="register-name" class="form-control" placeholder="000.000.000-00"
+                            required>
+                    </div>
+
+
+
+                    <!-- Campos específicos para empresas -->
+                    <div class="empresa-fields" id="register-empresa-fields">
+                        <div class="form-group">
+                            <label for="empresa-name">Nome da Empresa</label>
+                            <input type="text" id="empresa-name" class="form-control" placeholder="Nome da sua empresa">
+                        </div>
+                        
+                        <div class="form-group">
+                            <label for="empresa-cnpj">CNPJ</label>
+                            <input type="text" id="empresa-cnpj" class="form-control" placeholder="00.000.000/0000-00">
+                        </div>
+                    </div>
+
                     <div class="form-group">
                         <label for="register-email">E-mail</label>
-                        <input type="email" id="register-email" class="form-control" placeholder="seu@email.com" required>
+                        <input type="email" id="register-email" class="form-control" placeholder="seu@email.com"
+                            required>
                     </div>
-                    
+
                     <div class="form-group password-toggle">
                         <label for="register-password">Senha</label>
-                        <input type="password" id="register-password" class="form-control" placeholder="Crie uma senha" required>
+                        <input type="password" id="register-password" class="form-control" placeholder="Crie uma senha"
+                            required>
                         <span class="toggle-password" id="toggle-register-password">
                             <i class="far fa-eye"></i>
                         </span>
                     </div>
-                    
+
                     <div class="form-group password-toggle">
                         <label for="confirm-password">Confirmar senha</label>
-                        <input type="password" id="confirm-password" class="form-control" placeholder="Confirme sua senha" required>
+                        <input type="password" id="confirm-password" class="form-control"
+                            placeholder="Confirme sua senha" required>
                         <span class="toggle-password" id="toggle-confirm-password">
                             <i class="far fa-eye"></i>
                         </span>
                     </div>
-                    
-                    <div class="form-group">
+
+                    <div class="form-group" id="aluno-user-type">
                         <label for="user-type">Tipo de usuário</label>
                         <select id="user-type" class="form-control" required>
                             <option value="">Selecione uma opção</option>
@@ -501,20 +603,21 @@
                             <option value="teacher">Professor/Orientador</option>
                         </select>
                     </div>
-                    
+
                     <div class="form-group">
                         <label class="remember-me">
                             <input type="checkbox" id="terms" required>
-                            <span>Concordo com os <a href="#" style="color: var(--primary);">Termos de Uso</a> e <a href="#" style="color: var(--primary);">Política de Privacidade</a></span>
+                            <span>Concordo com os <a href="#" style="color: var(--primary);">Termos de Uso</a> e <a
+                                    href="#" style="color: var(--primary);">Política de Privacidade</a></span>
                         </label>
                     </div>
-                    
+
                     <button type="submit" class="btn btn-primary">Criar conta</button>
-                    
+
                     <div class="divider">
                         <span>Ou cadastre-se com</span>
                     </div>
-                    
+
                     <div class="social-login">
                         <button type="button" class="social-btn google">
                             <i class="fab fa-google"></i>
@@ -523,7 +626,7 @@
                             <i class="fab fa-facebook-f"></i>
                         </button>
                     </div>
-                    
+
                     <div class="auth-footer">
                         Já tem uma conta? <a href="#" id="go-to-login">Fazer login</a>
                     </div>
@@ -531,7 +634,7 @@
             </div>
         </div>
     </div>
-    
+
     <!-- Footer -->
     <footer>
         <div class="footer-content">
@@ -545,16 +648,17 @@
                     <a href="#"><i class="fab fa-linkedin"></i></a>
                 </div>
             </div>
-            
+
             <div class="footer-section">
                 <h3>Links Rápidos</h3>
                 <ul class="footer-links">
-                    <li><a href="#">Início</a></li>
-                    <li><a href="#">Projetos</a></li>
-                    <li><a href="#">Cadastrar Projeto</a></li>
+                    <li><a href="index.html">Projetos</a></li>
+                    <li><a href="empresas.html">Empresas Parceiras</a></li>
+                    <li><a href="login.html">Fazer Login</a></li>
+                    <li><a href="quiz.html">Quiz</a></li>
                 </ul>
             </div>
-            
+
             <div class="footer-section">
                 <h3>Contato</h3>
                 <p><i class="fas fa-map-marker-alt"></i> R. Maj. Gote, 808</p>
@@ -562,58 +666,58 @@
                 <p><i class="fas fa-envelope"></i> contato@uniponte.com</p>
             </div>
         </div>
-        
+
         <div class="copyright">
             <p>&copy; 2025 UniPonte - Todos os direitos reservados</p>
         </div>
     </footer>
 
     <script>
-        document.addEventListener('DOMContentLoaded', function() {
+        document.addEventListener('DOMContentLoaded', function () {
             // Elementos das abas
             const loginTab = document.getElementById('login-tab');
             const registerTab = document.getElementById('register-tab');
-            
+
             // Elementos dos formulários
             const loginForm = document.getElementById('login-form');
             const registerForm = document.getElementById('register-form');
-            
+
             // Links para alternar entre formulários
             const goToRegister = document.getElementById('go-to-register');
             const goToLogin = document.getElementById('go-to-login');
-            
+
             // Alternar entre abas
-            loginTab.addEventListener('click', function() {
+            loginTab.addEventListener('click', function () {
                 loginTab.classList.add('active');
                 registerTab.classList.remove('active');
                 loginForm.classList.add('active');
                 registerForm.classList.remove('active');
             });
-            
-            registerTab.addEventListener('click', function() {
+
+            registerTab.addEventListener('click', function () {
                 registerTab.classList.add('active');
                 loginTab.classList.remove('active');
                 registerForm.classList.add('active');
                 loginForm.classList.remove('active');
             });
-            
+
             // Alternar via links no rodapé dos formulários
-            goToRegister.addEventListener('click', function(e) {
+            goToRegister.addEventListener('click', function (e) {
                 e.preventDefault();
                 registerTab.click();
             });
-            
-            goToLogin.addEventListener('click', function(e) {
+
+            goToLogin.addEventListener('click', function (e) {
                 e.preventDefault();
                 loginTab.click();
             });
-            
+
             // Funcionalidade para mostrar/ocultar senha
-            const togglePassword = function(buttonId, inputId) {
+            const togglePassword = function (buttonId, inputId) {
                 const toggleButton = document.getElementById(buttonId);
                 const passwordInput = document.getElementById(inputId);
-                
-                toggleButton.addEventListener('click', function() {
+
+                toggleButton.addEventListener('click', function () {
                     if (passwordInput.type === 'password') {
                         passwordInput.type = 'text';
                         toggleButton.innerHTML = '<i class="far fa-eye-slash"></i>';
@@ -623,34 +727,88 @@
                     }
                 });
             };
-            
+
             // Aplicar a todos os campos de senha
             togglePassword('toggle-login-password', 'login-password');
             togglePassword('toggle-register-password', 'register-password');
             togglePassword('toggle-confirm-password', 'confirm-password');
-            
+
             // Validação de formulários
-            loginForm.addEventListener('submit', function(e) {
+            loginForm.addEventListener('submit', function (e) {
                 e.preventDefault();
-                alert('Login realizado com sucesso! Redirecionando...');
+                const userType = document.querySelector('#login-user-type .user-type-btn.active').dataset.type;
+                alert(`Login como ${userType} realizado com sucesso! Redirecionando...`);
                 // Em uma aplicação real, aqui você faria a autenticação
             });
-            
-            registerForm.addEventListener('submit', function(e) {
+
+            registerForm.addEventListener('submit', function (e) {
                 e.preventDefault();
-                
+
                 const password = document.getElementById('register-password').value;
                 const confirmPassword = document.getElementById('confirm-password').value;
-                
+                const userType = document.querySelector('#register-user-type .user-type-btn.active').dataset.type;
+
                 if (password !== confirmPassword) {
                     alert('As senhas não coincidem!');
                     return;
                 }
-                
-                alert('Conta criada com sucesso! Verifique seu e-mail para ativar sua conta.');
+
+                alert(`Conta de ${userType} criada com sucesso! Verifique seu e-mail para ativar sua conta.`);
                 // Em uma aplicação real, aqui você enviaria os dados para o servidor
             });
+
+            // Funcionalidade do toggle Aluno/Empresa
+            function setupUserTypeToggle(toggleId, extraFieldsId = null) {
+                const toggle = document.getElementById(toggleId);
+                const slider = toggle.querySelector('.user-type-slider');
+                const buttons = toggle.querySelectorAll('.user-type-btn');
+                const nomeAlunoHTML = document.getElementById("nome-aluno");
+                const cpfAlunoHTML = document.getElementById("cpf-aluno")
+                let isAluno = true;
+
+                buttons.forEach(button => {
+                    button.addEventListener('click', function() {
+                        const type = this.dataset.type;
+                        
+                        // Atualizar estado visual
+                        buttons.forEach(btn => btn.classList.remove('active'));
+                        this.classList.add('active');
+                        
+                        // Mover o slider
+                        if (type === 'empresa') {
+                            slider.style.transform = 'translateX(100%)';
+                            isAluno = false;
+                        } else {
+                            slider.style.transform = 'translateX(0)';
+                            isAluno = true;
+                        }
+
+                        // Mostrar/ocultar campos específicos (apenas no formulário de cadastro)
+                        if (extraFieldsId) {
+                            const empresaFields = document.getElementById(extraFieldsId);
+                            const alunoUserType = document.getElementById('aluno-user-type');
+                            
+                            if (type === 'empresa') {
+                                empresaFields.classList.add('active');
+                                nomeAlunoHTML.style.display = 'none';
+                                cpfAlunoHTML.style.display = 'none';
+                                alunoUserType.style.display = 'none';
+                            } else {
+                                empresaFields.classList.remove('active');
+                                nomeAlunoHTML.style.display = 'block';
+                                cpfAlunoHTML.style.display = 'block';
+                                alunoUserType.style.display = 'block';
+                            }
+                        }
+                    });
+                });
+            }
+
+            // Configurar os toggles
+            setupUserTypeToggle('login-user-type');
+            setupUserTypeToggle('register-user-type', 'register-empresa-fields');
         });
     </script>
 </body>
+
 </html>

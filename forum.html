@@ -1,0 +1,875 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>UniPonte - Fórum do Projeto</title>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+    <style>
+        :root {
+            --primary: #4A6BDF;
+            --secondary: #FF6B6B;
+            --accent: #4ECDC4;
+            --light: #F7F9FC;
+            --dark: #333333;
+            --success: #28a745;
+            --warning: #ffc107;
+            --danger: #dc3545;
+        }
+
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+        }
+
+        body {
+            background-color: #f5f7fa;
+            color: var(--dark);
+            line-height: 1.6;
+        }
+
+        .container {
+            width: 100%;
+            max-width: 1200px;
+            margin: 0 auto;
+            padding: 0 20px;
+        }
+
+        /* Header Styles */
+        header {
+            background: linear-gradient(135deg, var(--primary), #304fca);
+            color: white;
+            padding: 15px 0;
+            box-shadow: 0 4px 12px rgba(0, 0, 0, 0.1);
+        }
+
+        .header-content {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+        }
+
+        .logo {
+            display: flex;
+            align-items: center;
+            gap: 10px;
+            font-size: 1.5rem;
+            font-weight: 700;
+        }
+
+        .logo i {
+            font-size: 1.8rem;
+        }
+
+        nav ul {
+            display: flex;
+            list-style: none;
+            gap: 25px;
+        }
+
+        nav a {
+            color: white;
+            text-decoration: none;
+            font-weight: 500;
+            transition: opacity 0.3s;
+        }
+
+        nav a:hover {
+            opacity: 0.8;
+        }
+
+        /* Fórum Styles */
+        .forum-section {
+            padding: 40px 0;
+        }
+
+        .forum-header {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            margin-bottom: 30px;
+        }
+
+        .forum-title {
+            font-size: 1.8rem;
+            color: var(--dark);
+        }
+
+        .new-topic-btn {
+            background: var(--primary);
+            color: white;
+            border: none;
+            padding: 12px 24px;
+            border-radius: 50px;
+            font-weight: 600;
+            cursor: pointer;
+            display: flex;
+            align-items: center;
+            gap: 8px;
+            transition: all 0.3s;
+        }
+
+        .new-topic-btn:hover {
+            background: #3a5bc9;
+            transform: translateY(-2px);
+        }
+
+        .forum-container {
+            background: white;
+            border-radius: 12px;
+            overflow: hidden;
+            box-shadow: 0 5px 15px rgba(0, 0, 0, 0.08);
+        }
+
+        .forum-stats {
+            background: var(--light);
+            padding: 15px 20px;
+            display: flex;
+            gap: 20px;
+            border-bottom: 1px solid #eee;
+        }
+
+        .stat {
+            display: flex;
+            align-items: center;
+            gap: 8px;
+            font-size: 0.9rem;
+            color: #666;
+        }
+
+        .topics-list {
+            padding: 0;
+        }
+
+        .topic-item {
+            padding: 20px;
+            border-bottom: 1px solid #eee;
+            transition: background 0.3s;
+        }
+
+        .topic-item:hover {
+            background: #f9f9f9;
+        }
+
+        .topic-header {
+            display: flex;
+            justify-content: space-between;
+            margin-bottom: 10px;
+        }
+
+        .topic-title {
+            font-size: 1.1rem;
+            font-weight: 600;
+            color: var(--primary);
+            text-decoration: none;
+        }
+
+        .topic-title:hover {
+            text-decoration: underline;
+        }
+
+        .topic-meta {
+            display: flex;
+            gap: 15px;
+            font-size: 0.85rem;
+            color: #777;
+        }
+
+        .topic-author {
+            display: flex;
+            align-items: center;
+            gap: 5px;
+        }
+
+        .topic-excerpt {
+            color: #555;
+            margin-bottom: 10px;
+        }
+
+        .topic-footer {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+        }
+
+        .topic-replies {
+            display: flex;
+            align-items: center;
+            gap: 5px;
+            font-size: 0.9rem;
+            color: #777;
+        }
+
+        .topic-date {
+            font-size: 0.85rem;
+            color: #999;
+        }
+
+        /* Modal de Novo Tópico */
+        .modal {
+            display: none;
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            background: rgba(0, 0, 0, 0.7);
+            z-index: 1000;
+            overflow-y: auto;
+        }
+
+        .modal-content {
+            background: white;
+            margin: 50px auto;
+            border-radius: 12px;
+            max-width: 600px;
+            width: 90%;
+            animation: modalFade 0.3s;
+        }
+
+        @keyframes modalFade {
+            from {
+                opacity: 0;
+                transform: translateY(-30px);
+            }
+
+            to {
+                opacity: 1;
+                transform: translateY(0);
+            }
+        }
+
+        .modal-header {
+            padding: 20px;
+            border-bottom: 1px solid #eee;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+        }
+
+        .close-modal {
+            font-size: 1.5rem;
+            cursor: pointer;
+            color: #777;
+        }
+
+        .modal-body {
+            padding: 20px;
+        }
+
+        .form-group {
+            margin-bottom: 20px;
+        }
+
+        .form-group label {
+            display: block;
+            margin-bottom: 8px;
+            font-weight: 600;
+        }
+
+        .form-control {
+            width: 100%;
+            padding: 12px 15px;
+            border: 1px solid #ddd;
+            border-radius: 8px;
+            font-size: 1rem;
+        }
+
+        textarea.form-control {
+            min-height: 120px;
+            resize: vertical;
+        }
+
+        .form-submit {
+            text-align: right;
+            margin-top: 20px;
+        }
+
+
+
+        .btn {
+            padding: 10px 20px;
+            border-radius: 8px;
+            border: none;
+            font-weight: 600;
+            cursor: pointer;
+            transition: all 0.3s;
+            background: transparent;
+            border: 2px solid white;
+            color: white !important;
+            padding: 8px 16px;
+            border-radius: 50px;
+            border: none;
+            font-weight: 600;
+            cursor: pointer;
+            transition: all 0.3s;
+        }
+
+        .btn-primary {
+            background: var(--primary);
+            color: white;
+        }
+
+        .btn-outline {
+            background: transparent;
+            border: 1px solid #ddd;
+            color: #777;
+        }
+
+        .btn:hover {
+            transform: translateY(-2px);
+            box-shadow: 0 3px 10px rgba(0, 0, 0, 0.1);
+        }
+
+        /* Página de Tópico */
+        .topic-page {
+            display: none;
+            padding: 40px 0;
+        }
+
+        .back-button {
+            display: flex;
+            align-items: center;
+            gap: 8px;
+            color: var(--primary);
+            text-decoration: none;
+            font-weight: 600;
+            margin-bottom: 20px;
+        }
+
+        .topic-detail {
+            background: white;
+            border-radius: 12px;
+            padding: 25px;
+            box-shadow: 0 5px 15px rgba(0, 0, 0, 0.08);
+            margin-bottom: 20px;
+        }
+
+        .topic-detail-header {
+            display: flex;
+            justify-content: space-between;
+            margin-bottom: 15px;
+        }
+
+        .topic-detail-title {
+            font-size: 1.4rem;
+            color: var(--dark);
+        }
+
+        .topic-detail-meta {
+            display: flex;
+            gap: 15px;
+            color: #777;
+            font-size: 0.9rem;
+            margin-bottom: 15px;
+        }
+
+        .topic-detail-content {
+            line-height: 1.7;
+            color: #444;
+        }
+
+        .replies-section {
+            margin-top: 30px;
+        }
+
+        .replies-title {
+            font-size: 1.2rem;
+            margin-bottom: 20px;
+            color: var(--dark);
+        }
+
+        .reply-item {
+            background: white;
+            border-radius: 12px;
+            padding: 20px;
+            box-shadow: 0 3px 10px rgba(0, 0, 0, 0.05);
+            margin-bottom: 15px;
+        }
+
+        .reply-header {
+            display: flex;
+            justify-content: space-between;
+            margin-bottom: 10px;
+        }
+
+        .reply-author {
+            font-weight: 600;
+            color: var(--primary);
+        }
+
+        .reply-date {
+            color: #777;
+            font-size: 0.85rem;
+        }
+
+        .reply-content {
+            color: #444;
+            line-height: 1.6;
+        }
+
+        .add-reply {
+            background: white;
+            border-radius: 12px;
+            padding: 20px;
+            box-shadow: 0 3px 10px rgba(0, 0, 0, 0.05);
+            margin-top: 30px;
+        }
+
+        /* Footer */
+        footer {
+            background: var(--dark);
+            color: white;
+            padding: 40px 0 20px;
+            margin-top: 60px;
+        }
+
+        .footer-content {
+            display: flex;
+            flex-wrap: wrap;
+            justify-content: space-between;
+            gap: 30px;
+        }
+
+        .footer-section {
+            flex: 1;
+            min-width: 250px;
+        }
+
+        .footer-section h3 {
+            margin-bottom: 20px;
+            font-size: 1.2rem;
+        }
+
+        .footer-links {
+            list-style: none;
+        }
+
+        .footer-links li {
+            margin-bottom: 10px;
+        }
+
+        .footer-links a {
+            color: #ddd;
+            text-decoration: none;
+        }
+
+        .footer-links a:hover {
+            color: white;
+        }
+
+        .social-links {
+            display: flex;
+            gap: 15px;
+            margin-top: 15px;
+        }
+
+        .social-links a {
+            color: white;
+            font-size: 1.5rem;
+        }
+
+        .copyright {
+            text-align: center;
+            margin-top: 40px;
+            padding-top: 20px;
+            border-top: 1px solid #444;
+        }
+
+        /* Responsive Design */
+        @media (max-width: 768px) {
+            .header-content {
+                flex-direction: column;
+                gap: 15px;
+            }
+
+            nav ul {
+                gap: 15px;
+                flex-wrap: wrap;
+                justify-content: center;
+            }
+
+            .forum-header {
+                flex-direction: column;
+                align-items: flex-start;
+                gap: 15px;
+            }
+
+            .topic-header {
+                flex-direction: column;
+                gap: 10px;
+            }
+
+            .topic-footer {
+                flex-direction: column;
+                align-items: flex-start;
+                gap: 10px;
+            }
+        }
+
+        header {
+            background: linear-gradient(135deg, var(--primary), #304fca);
+            color: white;
+            padding: 15px 0;
+            box-shadow: 0 4px 12px rgba(0, 0, 0, 0.1);
+        }
+
+        .header-content {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+        }
+
+        .logo {
+            display: flex;
+            align-items: center;
+            gap: 10px;
+            font-size: 1.5rem;
+            font-weight: 700;
+        }
+
+        .logo i {
+            font-size: 1.8rem;
+        }
+
+        nav ul {
+            display: flex;
+            list-style: none;
+            align-items: center;
+            gap: 25px;
+        }
+
+        nav a {
+            color: white;
+            text-decoration: none;
+            font-weight: 500;
+            transition: opacity 0.3s;
+        }
+
+        nav a:hover {
+            opacity: 0.8;
+        }
+
+        a {
+            text-decoration: none;
+            color: inherit;
+        }
+    </style>
+</head>
+
+<body>
+    <!-- Header -->
+    <header>
+        <div class="container header-content">
+            <a href="index.html">
+                <div class="logo">
+                    <i class="fas fa-graduation-cap"></i>
+                    <span>UniPonte</span>
+                </div>
+            </a>
+            <nav>
+                <ul>
+                    <li><a href="index.html">Projetos</a></li>
+                    <li><a href="empresas.html" class="active">Empresas Parceiras</a></li>
+                    <!-- <li><a href="#" id="show-form-link">Cadastrar Projeto</a></li>  -->
+                    <li><a href="quiz.html">Quiz</a></li>
+                    <li>
+                        <button class="btn btn-outline" onclick="window.location.href='login.html'">Fazer Login</button>
+                    </li>
+                </ul>
+            </nav>
+
+
+        </div>
+    </header>
+
+    <!-- Fórum Section -->
+    <section class="container forum-section">
+        <div class="forum-header">
+            <h2 class="forum-title">Fórum do Projeto: App de Reciclagem Sustentável</h2>
+            <button class="new-topic-btn" id="new-topic-btn">
+                <i class="fas fa-plus"></i> Novo Tópico
+            </button>
+        </div>
+
+        <div class="forum-container">
+            <div class="forum-stats">
+                <div class="stat">
+                    <i class="fas fa-comments"></i>
+                    <span>5 tópicos</span>
+                </div>
+                <div class="stat">
+                    <i class="fas fa-reply"></i>
+                    <span>12 respostas</span>
+                </div>
+                <div class="stat">
+                    <i class="fas fa-users"></i>
+                    <span>8 participantes</span>
+                </div>
+            </div>
+
+            <div class="topics-list">
+                <!-- Tópico 1 -->
+                <div class="topic-item">
+                    <div class="topic-header">
+                        <a href="#" class="topic-title">Dúvida sobre materiais necessários</a>
+                        <div class="topic-meta">
+                            <span class="topic-author">
+                                <i class="fas fa-user"></i> Ana Silva
+                            </span>
+                            <span class="topic-views">
+                                <i class="fas fa-eye"></i> 45
+                            </span>
+                        </div>
+                    </div>
+                    <p class="topic-excerpt">Gostaria de saber se preciso comprar todos os materiais listados ou se a
+                        universidade fornece alguns...</p>
+                    <div class="topic-footer">
+                        <div class="topic-replies">
+                            <i class="fas fa-reply"></i> 3 respostas
+                        </div>
+                        <div class="topic-date">
+                            Última resposta: 2 horas atrás
+                        </div>
+                    </div>
+                </div>
+
+                <!-- Tópico 2 -->
+                <div class="topic-item">
+                    <div class="topic-header">
+                        <a href="#" class="topic-title">Datas das reuniões presenciais</a>
+                        <div class="topic-meta">
+                            <span class="topic-author">
+                                <i class="fas fa-user"></i> Carlos Oliveira
+                            </span>
+                            <span class="topic-views">
+                                <i class="fas fa-eye"></i> 32
+                            </span>
+                        </div>
+                    </div>
+                    <p class="topic-excerpt">Quando serão as próximas reuniões presenciais? Preciso me organizar com o
+                        transporte...</p>
+                    <div class="topic-footer">
+                        <div class="topic-replies">
+                            <i class="fas fa-reply"></i> 1 resposta
+                        </div>
+                        <div class="topic-date">
+                            Última resposta: 1 dia atrás
+                        </div>
+                    </div>
+                </div>
+
+                <!-- Tópico 3 -->
+                <div class="topic-item">
+                    <div class="topic-header">
+                        <a href="#" class="topic-title">Dificuldade com React Native</a>
+                        <div class="topic-meta">
+                            <span class="topic-author">
+                                <i class="fas fa-user"></i> Mariana Costa
+                            </span>
+                            <span class="topic-views">
+                                <i class="fas fa-eye"></i> 28
+                            </span>
+                        </div>
+                    </div>
+                    <p class="topic-excerpt">Estou com dificuldades na parte de navegação entre telas no React Native.
+                        Alguém pode me ajudar?</p>
+                    <div class="topic-footer">
+                        <div class="topic-replies">
+                            <i class="fas fa-reply"></i> 4 respostas
+                        </div>
+                        <div class="topic-date">
+                            Última resposta: 5 horas atrás
+                        </div>
+                    </div>
+                </div>
+
+                <!-- Tópico 4 -->
+                <div class="topic-item">
+                    <div class="topic-header">
+                        <a href="#" class="topic-title">Sugestão de melhoria no design</a>
+                        <div class="topic-meta">
+                            <span class="topic-author">
+                                <i class="fas fa-user"></i> João Mendes
+                            </span>
+                            <span class="topic-views">
+                                <i class="fas fa-eye"></i> 22
+                            </span>
+                        </div>
+                    </div>
+                    <p class="topic-excerpt">Achei o design muito bom, mas tenho algumas sugestões para melhorar a
+                        experiência do usuário...</p>
+                    <div class="topic-footer">
+                        <div class="topic-replies">
+                            <i class="fas fa-reply"></i> 2 respostas
+                        </div>
+                        <div class="topic-date">
+                            Última resposta: 3 dias atrás
+                        </div>
+                    </div>
+                </div>
+
+                <!-- Tópico 5 -->
+                <div class="topic-item">
+                    <div class="topic-header">
+                        <a href="#" class="topic-title">Como participar do projeto?</a>
+                        <div class="topic-meta">
+                            <span class="topic-author">
+                                <i class="fas fa-user"></i> Pedro Almeida
+                            </span>
+                            <span class="topic-views">
+                                <i class="fas fa-eye"></i> 38
+                            </span>
+                        </div>
+                    </div>
+                    <p class="topic-excerpt">Gostaria de saber quais são os requisitos para participar deste projeto e
+                        como faço a inscrição...</p>
+                    <div class="topic-footer">
+                        <div class="topic-replies">
+                            <i class="fas fa-reply"></i> 2 respostas
+                        </div>
+                        <div class="topic-date">
+                            Última resposta: 6 horas atrás
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Modal de Novo Tópico -->
+    <div class="modal" id="topic-modal">
+        <div class="modal-content">
+            <div class="modal-header">
+                <h2>Novo Tópico</h2>
+                <span class="close-modal">&times;</span>
+            </div>
+            <div class="modal-body">
+                <form id="new-topic-form">
+                    <div class="form-group">
+                        <label for="topic-title">Título do Tópico</label>
+                        <input type="text" id="topic-title" class="form-control"
+                            placeholder="Digite um título claro para sua dúvida ou sugestão" required>
+                    </div>
+
+                    <div class="form-group">
+                        <label for="topic-content">Conteúdo</label>
+                        <textarea id="topic-content" class="form-control"
+                            placeholder="Descreva detalhadamente sua dúvida, sugestão ou comentário"
+                            required></textarea>
+                    </div>
+
+                    <div class="form-submit">
+                        <button type="button" class="btn btn-outline">Cancelar</button>
+                        <button type="submit" class="btn btn-primary">Publicar Tópico</button>
+                    </div>
+                </form>
+            </div>
+        </div>
+    </div>
+
+    <!-- Footer -->
+    <footer>
+        <div class="container">
+            <div class="footer-content">
+                <div class="footer-section">
+                    <h3>UniPonte</h3>
+                    <p>Conectando alunos do ensino médio com universitários através de projetos acadêmicos práticos.</p>
+                    <div class="social-links">
+                        <a href="#"><i class="fab fa-facebook"></i></a>
+                        <a href="#"><i class="fab fa-instagram"></i></a>
+                        <a href="#"><i class="fab fa-twitter"></i></a>
+                        <a href="#"><i class="fab fa-linkedin"></i></a>
+                    </div>
+                </div>
+
+                <div class="footer-section">
+                    <h3>Links Rápidos</h3>
+                    <ul class="footer-links">
+                        <li><a href="#">Início</a></li>
+                        <li><a href="#">Projetos</a></li>
+                        <li><a href="#">Cadastrar Projeto</a></li>
+                        <li><a href="#">Sobre Nós</a></li>
+                        <li><a href="#">Contato</a></li>
+                    </ul>
+                </div>
+
+                <div class="footer-section">
+                    <h3>Contato</h3>
+                    <p><i class="fas fa-map-marker-alt"></i> Av. das Universidades, 123</p>
+                    <p><i class="fas fa-phone"></i> (11) 3456-7890</p>
+                    <p><i class="fas fa-envelope"></i> contato@uniponte.com</p>
+                </div>
+            </div>
+
+            <div class="copyright">
+                <p>&copy; 2023 UniPonte - Todos os direitos reservados</p>
+            </div>
+        </div>
+    </footer>
+
+    <script>
+        document.addEventListener('DOMContentLoaded', function () {
+            const newTopicBtn = document.getElementById('new-topic-btn');
+            const topicModal = document.getElementById('topic-modal');
+            const closeModal = document.querySelector('.close-modal');
+            const newTopicForm = document.getElementById('new-topic-form');
+            const cancelBtn = document.querySelector('.btn-outline');
+
+            // Abrir modal
+            newTopicBtn.addEventListener('click', () => {
+                topicModal.style.display = 'block';
+                document.body.style.overflow = 'hidden';
+            });
+
+            // Fechar modal
+            closeModal.addEventListener('click', () => {
+                topicModal.style.display = 'none';
+                document.body.style.overflow = 'auto';
+            });
+
+            // Fechar modal ao clicar fora
+            window.addEventListener('click', (e) => {
+                if (e.target === topicModal) {
+                    topicModal.style.display = 'none';
+                    document.body.style.overflow = 'auto';
+                }
+            });
+
+            // Cancelar
+            cancelBtn.addEventListener('click', () => {
+                topicModal.style.display = 'none';
+                document.body.style.overflow = 'auto';
+            });
+
+            // Enviar formulário
+            newTopicForm.addEventListener('submit', (e) => {
+                e.preventDefault();
+
+                const title = document.getElementById('topic-title').value;
+                const content = document.getElementById('topic-content').value;
+
+                // Aqui você enviaria os dados para o servidor
+                // Por enquanto, vamos apenas simular o sucesso
+                alert('Tópico criado com sucesso! Em breve aparecerá no fórum.');
+                topicModal.style.display = 'none';
+                document.body.style.overflow = 'auto';
+                newTopicForm.reset();
+            });
+
+            // Links para tópicos (simulação)
+            const topicLinks = document.querySelectorAll('.topic-title');
+            topicLinks.forEach(link => {
+                link.addEventListener('click', (e) => {
+                    e.preventDefault();
+                    alert('Aqui seria aberta a página do tópico selecionado.');
+                });
+            });
+        });
+    </script>
+</body>
+
+</html>
